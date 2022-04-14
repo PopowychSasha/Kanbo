@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+.text-wrapper{
+    width: 450px;
+    .title{
+        font-size: 45px;
+        color:#4f524f;
+        .main-word{
+            font-weight: 700;
+        }
+    }
+    .sub-title{
+        margin-top: 40px;
+        font-size: 25px;
+        color:#4f524f;
+        font-weight: 200;
+        font-family: 'Indie Flower', cursive;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    .text-wrapper{
+        width: 300px;
+        .title{
+            font-size: 35px;
+        }
+        .sub-title{
+            font-size: 20px;
+        }
+    }
+}
+
+@media screen and (max-width:992px) {
+    .text-wrapper{
+        width: 250px;
+        .title{
+            font-size: 30px;
+        }
+        .sub-title{
+            font-size: 16px;
+        }
+    }
+}
+
+@media screen and (max-width:768px) {
+    .text-wrapper{
+        display: flex;
+        width: 500px;
+        margin:auto;
+        .title{
+            font-size: 30px;
+            text-align: center;
+        }
+        .sub-title{
+            font-size: 16px;
+            text-align: center;
+        }
+    }
+}
+
+@media screen and (max-width:576px) {
+    .text-wrapper{
+        display: flex;
+        width: 400px;
+        margin:auto;
+        .title{
+            display: none;
+        }
+        .sub-title{
+            font-size: 30px;
+            font-weight: 500;
+            width: 350px;
+            margin:auto;
+            text-align: center;
+            .main-word{
+                font-weight: 900;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:400px) {
+    .text-wrapper{
+        width: 300px;
+        .sub-title{
+            font-size: 20px;
+        }
+    }
+}

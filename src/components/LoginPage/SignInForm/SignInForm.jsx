@@ -6,7 +6,7 @@ import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel} fro
 import { Visibility,VisibilityOff} from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const SignInForm = ()=>{
+const SignInForm = ({formsToggle})=>{
   
   const[isEysClosed,setIsEysClosed] = useState();
 
@@ -48,7 +48,7 @@ const SignInForm = ()=>{
             </FormControl>
             <Button className='sign-in-btn' variant="outlined" color="secondary">Sign In</Button>
         </form>
-        <div className="dont-have-account">Don't have an account ?</div>
+        <div onClick={formsToggle} className="dont-have-account">Don't have an account ?</div>
     </div>
   )
 }

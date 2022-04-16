@@ -1,0 +1,35 @@
+.sign-up-form-wrapper{
+    width: 350px;
+    height: 600px;
+    background:white;
+    margin:auto;
+    margin-top:25px;
+    margin-bottom:75px;
+    padding-top: 50px;
+    border-radius: 20px;
+    .sign-up-form-title{
+        font-size: 35px;
+        margin: auto;
+        text-align: center;
+    }
+    .sign-up-form{
+        text-align: center;
+        margin-top: 40px;
+        height: 350px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 250px;
+        margin: auto;
+        margin-top: 50px;
+        .sign-in-btn{
+            margin-top: 50px;
+        }
+    }
+    .dont-have-account{
+        cursor: pointer;
+        text-align: center;
+        margin-top:25px;
+        color:#CA90D4;
+    }
+}

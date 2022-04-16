@@ -1,5 +1,4 @@
 .page-wrapper{
-    background-image: linear-gradient(to right top,#FDFDFF,#D581CF);
     min-height: 100vh;
     .content-wrapper{
         width: 1200px;
@@ -11,7 +10,6 @@
         }
         .get-started-btn{
             width: 150px;
-            margin-left: 250px;
             margin: 50px 100px;
         }
         :hover.get-started-btn{

@@ -1,10 +1,11 @@
 import './LoginPage.scss';
 
+import { useState } from 'react';
+
 import SignInForm from '../../components/LoginPage/SignInForm/SignInForm';
+import SignUpForm from '../../components/LoginPage/SignUpForm/SignUpForm';
 
 import man from '../../images/man.png';
-import { useState } from 'react';
-import SignUpForm from '../../components/LoginPage/SignUpForm/SignUpForm';
 
 const LoginPage = ()=>{
   const [isSignInFormActive,setIsSignInFormActive] = useState(true);
@@ -12,6 +13,7 @@ const LoginPage = ()=>{
   const formsToggleHandler = ()=>{
     setIsSignInFormActive(isSignInFormActive=>!isSignInFormActive);
   }
+  
   return(
     <div className='login-page-wrapper'>
       {

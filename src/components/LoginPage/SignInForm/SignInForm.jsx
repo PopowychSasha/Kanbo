@@ -7,7 +7,6 @@ import { Visibility,VisibilityOff} from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const SignInForm = ({formsToggle})=>{
-  
   const[isEysClosed,setIsEysClosed] = useState();
 
   const toggleShowPasswordHandler = () => setIsEysClosed(isEysClosed=>!isEysClosed);

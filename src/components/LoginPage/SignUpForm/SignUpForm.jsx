@@ -2,12 +2,15 @@ import './SignUpForm.scss';
 
 import { useState } from 'react';
 
-import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel } from '@mui/material';
+import { Backdrop, Button, CircularProgress, FormControl, IconButton, Input, InputAdornment, InputLabel } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { authDataCreator } from '../../../redux/actionCreators/authDataCreator';
+import {useNavigate} from 'react-router-dom';
 
 const SignUpForm = ({formsToggle})=>{
   const[isEysClosed,setIsEysClosed] = useState();
@@ -15,7 +18,9 @@ const SignUpForm = ({formsToggle})=>{
   const[nickname,setNickname] = useState('');
   const[email,setEmail] = useState('');
   const[password,setPassword] = useState('');
-
+  
+  const[isLoader,setIsLoader] = useState(false);
+  
   const[imageSelected,setImageSelected] = useState();
 
   const onChangeNicknameHandler = (e)=>setNickname(e.target.value);
@@ -23,9 +28,13 @@ const SignUpForm = ({formsToggle})=>{
   const onChangePasswordHandler = (e)=>setPassword(e.target.value);
 
   const toggleShowPasswordHandler = () => setIsEysClosed(isEysClosed=>!isEysClosed);
-  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onSubmitFormHandler = (event)=>{
     event.preventDefault();
+
+    setIsLoader(true);
 
     const formData = new FormData();
     formData.append("file",imageSelected);
@@ -36,7 +45,11 @@ const SignUpForm = ({formsToggle})=>{
         axios.post('/api/auth/signup',{
             nickname,email,password,avatarPublicId:responce.data.public_id
          })
-         .then(data=>console.log(data))
+         .then(data=>{
+             dispatch(authDataCreator({isLogIn:true,token:data.data.token}));
+             navigate('/boards');
+             setIsLoader(false);
+         })
          .catch(err=>console.log(err.message))
     })
     .catch(err=>console.log('Cloudinary error'))
@@ -46,8 +59,19 @@ const SignUpForm = ({formsToggle})=>{
     setPassword('');
   }
 
+ 
+  
+  const userData = useSelector(store=>store.userReducer)
+  console.log(userData);
+
   return(
     <div className='sign-up-form-wrapper'>
+        {isLoader && <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>}
         <div className='sign-up-form-title'>SignUp</div>
         <form className='sign-up-form'
               onSubmit={onSubmitFormHandler}>
@@ -116,7 +140,6 @@ const SignUpForm = ({formsToggle})=>{
                     :<AddAPhotoIcon/>}
                 </div>
             }
-            
             <Button type="submit" className='sign-in-btn' variant="contained" color="secondary">Sign Up</Button>
         </form>
         <div onClick={formsToggle} className="dont-have-account">I already have an account</div>

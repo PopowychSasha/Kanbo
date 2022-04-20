@@ -1,12 +1,12 @@
-
+import Header from '../../shared/Header/Header';
 import './BoardsListPage.scss';
 
-const BoardsListPage = ()=>{
-  return(
-    <div className='boards-page-wrapper'>
-        This is boards page wrapper
-    </div>
-  )
-}
+const BoardsListPage = () => {
+	return (
+		<div className='boards-page-wrapper'>
+			<Header />
+		</div>
+	);
+};
 
 export default BoardsListPage;

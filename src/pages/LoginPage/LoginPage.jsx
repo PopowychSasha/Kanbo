@@ -7,26 +7,25 @@ import SignUpForm from '../../components/LoginPage/SignUpForm/SignUpForm';
 
 import man from '../../images/man.png';
 
-const LoginPage = ()=>{
-  const [isSignInFormActive,setIsSignInFormActive] = useState(true);
+const LoginPage = () => {
+	const [isSignInFormActive, setIsSignInFormActive] = useState(true);
 
-  const formsToggleHandler = ()=>{
-    setIsSignInFormActive(isSignInFormActive=>!isSignInFormActive);
-  }
-  
-  return(
-    <div className='login-page-wrapper'>
-      {
-        isSignInFormActive ? 
-        <>
-            <img src={man} alt=""/>
-            <SignInForm formsToggle={formsToggleHandler}/>
-        </>
-        :
-        <SignUpForm formsToggle={formsToggleHandler}/>
-      }
-    </div>
-  )
-}
+	const formsToggleHandler = () => {
+		setIsSignInFormActive(isSignInFormActive => !isSignInFormActive);
+	};
+
+	return (
+		<div className='login-page-wrapper'>
+			{isSignInFormActive ? (
+				<>
+					<img src={man} alt='' />
+					<SignInForm formsToggle={formsToggleHandler} />
+				</>
+			) : (
+				<SignUpForm formsToggle={formsToggleHandler} />
+			)}
+		</div>
+	);
+};
 
 export default LoginPage;

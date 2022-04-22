@@ -29,8 +29,8 @@ const SignUpForm = ({ formsToggle }) => {
 
 	const [isLoader, setIsLoader] = useState(false);
 
-	const [imageSelected, setImageSelected] = useState();
 	const [pickedImageUrl, setPickedImageUrl] = useState('');
+	const [imageSelected,setImageSelected] = useState({});
 
 	const toggleShowPasswordHandler = () => setIsEysClosed(isEysClosed => !isEysClosed);
 	const dispatch = useDispatch();
@@ -111,16 +111,19 @@ const SignUpForm = ({ formsToggle }) => {
 					setEmailError={setEmailError}
 					setEmail={setEmail}
 				/>
-				<ImagePicker
-					setPickedImageUrl={setPickedImageUrl}
-					setImageSelected={setImageSelected}
-					imageSelected={imageSelected}
-				/>
-				{pickedImageUrl && (
-					<div className='picked-image'>
-						<img src={`${pickedImageUrl}`} alt='' />
-					</div>
-				)}
+				<div className='image-picker-wrapper'>
+		
+					<ImagePicker
+						setPickedImageUrl={setPickedImageUrl}
+						setImageSelected={setImageSelected}
+						imageSelected={imageSelected}
+					/>
+					{pickedImageUrl && (
+						<div className='picked-image'>
+							<img src={`${pickedImageUrl}`} alt='' />
+						</div>
+					)}
+				</div>
 				<Button type='submit' variant='contained' color='secondary'>
 					Sign Up
 				</Button>

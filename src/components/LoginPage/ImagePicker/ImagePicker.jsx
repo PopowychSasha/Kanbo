@@ -1,14 +1,12 @@
 
 import { Button } from '@mui/material';
 import './ImagePicker.scss';
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
-
-const ImagePicker = ({setPickedImageUrl,setImageSelected,imageSelected})=>{
+const ImagePicker = ({setPickedImageUrl,setImageSelected})=>{
   return(
     
     <div className='image-picker'>
-          <Button component='label' variant='outlined' color='secondary'>
+          <Button component='label' variant='outlined' color='secondary' sx={{ width: 150,height:50 }}>
             Upload Image
             <input
               type='file'
@@ -20,13 +18,7 @@ const ImagePicker = ({setPickedImageUrl,setImageSelected,imageSelected})=>{
               }}
             />
           </Button>
-          {imageSelected ? (
-            <AddAPhotoIcon style={{ color: 'green' }} />
-          ) : (
-            <AddAPhotoIcon />
-          )}
-        </div>
-    
+    </div>
   )
 }
 

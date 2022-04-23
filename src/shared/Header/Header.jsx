@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { asyncAccountDataCreator, removeAccountDataCreator } from '../../redux/actionCreators/accountData';
 import { Image } from 'cloudinary-react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Header = () => {
 	const mainUserData = useSelector(store => store.accountDataReducer);
@@ -32,9 +33,9 @@ const Header = () => {
 			</div>
 			<button
 				onClick={() => {
-          dispatch(removeAccountDataCreator());
-					document.cookie = 'nickname=';
-					document.cookie = 'token=';
+					dispatch(removeAccountDataCreator());
+					axios.get('/api/logout')
+					.then(res=>console.log(res.data))
 					navigate('/');
 				}}>
 				Exit

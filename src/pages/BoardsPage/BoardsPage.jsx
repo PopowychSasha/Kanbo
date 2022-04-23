@@ -1,5 +1,5 @@
 import Header from '../../shared/Header/Header';
-import './BoardsListPage.scss';
+import './BoardsPage.scss';
 
 const BoardsListPage = () => {
 	return (

@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import StartedPage from '../../pages/StartedPage/StartedPage';
 import LoginPage from '../../pages/LoginPage/LoginPage';
-import BoardsListPage from '../../pages/BoardsListPage/BoardsListPage';
+import BoardsPage from '../../pages/BoardsPage/BoardsPage';
 import { useSelector } from 'react-redux';
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
 		<Routes>
 			<Route path='/' element={<StartedPage />} />
 			<Route path='/login' element={<LoginPage />} />
-			{isLogIn && <Route path='/boards' element={<BoardsListPage />} />}
+			{isLogIn && <Route path='/boards' element={<BoardsPage />} />}
 			<Route path='*' element={<Navigate to='/' />} />
 		</Routes>
 	);

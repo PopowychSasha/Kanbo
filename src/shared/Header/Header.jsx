@@ -2,10 +2,10 @@ import './Header.scss';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { asyncAccountDataCreator, removeAccountDataCreator } from '../../redux/actionCreators/accountData';
+import { asyncAccountDataCreator } from '../../redux/actionCreators/accountData';
 import { Image } from 'cloudinary-react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import Logo from '../Logo/Logo';
+import HeaderDropDown from '../HeaderDropDown/HeaderDropDown';
 
 const Header = () => {
 	const mainUserData = useSelector(store => store.accountDataReducer);
@@ -14,32 +14,19 @@ const Header = () => {
 	useEffect(() => {
 		dispatch(asyncAccountDataCreator());
 	}, []);
-	const navigate = useNavigate();
 
 	return (
 		<header className='header-wrapper'>
-			<div>
-				<h1>Nickname={mainUserData.nickname}</h1>
-			</div>
-			<div>
-				<h1>Email={mainUserData.email}</h1>
-			</div>
-			<div>
+			<Logo/>
+			<div className='avatar'>
+				<span>Wellcome <span className='user-nickname'>{mainUserData.nickname} !</span></span>
 				<Image
 					cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
 					publicId={mainUserData.avatarPublicId}
-					width='200px'
+					className="avatar-icon"
 				/>
-			</div>
-			<button
-				onClick={() => {
-					dispatch(removeAccountDataCreator());
-					axios.get('/api/logout')
-					.then(res=>console.log(res.data))
-					navigate('/');
-				}}>
-				Exit
-			</button>
+				<HeaderDropDown/>
+			</div>	
 		</header>
 	);
 };

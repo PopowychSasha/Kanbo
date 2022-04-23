@@ -1,5 +1,24 @@
 .header-wrapper {
 	width: 100vw;
-	min-height: 50px;
-	background: #fff;
+	min-height: 90px;
+	background-image: linear-gradient(to right top,#FDFDFF,#D581CF);
+	display: flex;
+	justify-content: space-around;
+	.avatar{
+		display: flex;
+		align-items:center;
+		font-family: 'Square Peg', cursive;
+		.user-nickname{
+			font-size: 20px;
+			font-weight: 700;
+			text-transform: uppercase;
+			font-family: 'Square Peg', cursive;
+		}
+		.avatar-icon{
+			background:#FFFFFF;
+			width: 75px;
+			border-radius: 100%;
+			margin-left: 10px;
+		}
+	}
 }

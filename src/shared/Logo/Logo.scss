@@ -1,12 +1,15 @@
-.logo-wrapper{
-    display: flex;
-    align-items: center;
-    .logo-icon{
-        width: 75px;
+
+    .logo-wrapper{
+        display: flex;
+        align-items: center;
+   
+            .logo-icon{
+                width: 75px;
+            }
+            .logo-text{
+                font-family: 'Square Peg', cursive;
+                font-size: 50px;
+                color:#65B1FC;
+            }
+        
     }
-    .logo-text{
-        font-family: 'Square Peg', cursive;
-        font-size: 50px;
-        color:#65B1FC;
-    }
-}

@@ -5,6 +5,7 @@ import './CreateBoardModal.scss';
 import { Dialog, DialogActions, FormControl, FormControlLabel, Radio, RadioGroup, TextField } from '@mui/material';
 import { forwardRef, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -12,6 +13,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 const CreateBoardModal=({handleClickClose})=> {
   const[boardType,setBoardType] = useState('');
   const[boardName,setBoardName] = useState('');
+  const navigate = useNavigate();
 
   const setBoardTypeHandler = (e)=>{
       setBoardType(e.target.value);
@@ -23,7 +25,10 @@ const CreateBoardModal=({handleClickClose})=> {
 
   const createBoardHandler = ()=>{
       axios.post('/api/board',{name:boardName,type:boardType})
-      .then(res=>console.log(res))
+      .then(res=>{
+        console.log(res);
+        navigate(`/board/${res.data.id}`);
+      })
       .catch(err=>console.log(err.message));
       handleClickClose();
   }

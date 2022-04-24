@@ -4,6 +4,9 @@
 	background-image: linear-gradient(to right top,#FDFDFF,#D581CF);
 	display: flex;
 	justify-content: space-around;
+	position: sticky;   
+    top: 0; 
+	margin-bottom: 10px;
 	.avatar{
 		display: flex;
 		align-items:center;

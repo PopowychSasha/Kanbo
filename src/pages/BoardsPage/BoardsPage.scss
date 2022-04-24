@@ -1,3 +1,39 @@
 .boards-page-wrapper{
     min-height: 100vh;
+    .board{
+        border:1px solid silver;
+        height:100px;
+        width: 500px;
+        margin: auto;
+        cursor: pointer;
+        margin-bottom: 10px;
+        background: #FFFFFF;
+        padding: 10px;
+        border-radius:20px;
+        transition: 0.5s;
+        a{
+            color:#65B1FC;
+            display: flex;
+            align-items:center;
+            justify-content: space-between;
+            .left-part{
+                font-size:25px;
+                color:#65B1FC;
+            }
+            .right-part{
+                color: grey;
+                height: 70px;
+                display: flex;
+                align-items:flex-end;
+                flex-direction: column;
+                justify-content: space-between;
+                font-size: 12px;
+            }
+        }
+    }
+    .board:hover{
+        transition: 0.5s;
+        height:110px;
+        width: 530px;
+    }
 }

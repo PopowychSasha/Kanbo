@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './BoardPage.scss';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Header from '../../shared/Header/Header';
 
 const BoardPage = ()=>{
   const boardId = useParams().id;
@@ -72,7 +73,7 @@ const BoardPage = ()=>{
   const createTaskHandler = (e)=>{
     e.preventDefault();
     const boardsClone = JSON.parse(JSON.stringify(boards));
-    boardsClone[0] = {id:1,title:'Зробити',items:[...boardsClone[0].items,{id:Math.random(),title:task}]}
+    boardsClone[0] = {id:1,title:'UnDone',items:[...boardsClone[0].items,{id:Math.random(),title:task}]}
     setBoards([...boardsClone]);
 
     axios.post('/api/task',{taskName:task,boardId:boardId})
@@ -83,33 +84,38 @@ const BoardPage = ()=>{
   }
 
   return(
-  <div style={{display:'flex'}}>
-    {
-      boards.map(board=>{
-        return <div key={board.id} style={{border:'1px solid red',padding:'50px'}}
-                onDragOver={(e)=>dragOverHandler(e)}
-                onDrop={(e)=>dropCardHandler(e,board)}
-                >
-            <h1>{board.title}</h1>
-            <hr/>
-            {
-              board.items.map(item=>{
-                return <h2
-                onDragOver={(e)=>dragOverHandler(e)}
-                onDragLeave={(e)=>dragLeaveHandler(e)}
-                onDragStart={(e)=>dragStartHandler(e,board,item)}
-                onDragEnd={(e)=>dragEndHandler(e)}
-                onDrop={(e)=>dropHandler(e,board,item)}
-                key={item.id} 
-                draggable={true}>{item.title}</h2>
-              })
-            }
-        </div>
-      })
-    }
+    <div className='board-page-wrapper'>
+      <Header/>
+      <div className='board-wrapper'>
+      {
+        boards.map(board=>{
+          return <div className='board-part' key={board.id} 
+                  onDragOver={(e)=>dragOverHandler(e)}
+                  onDrop={(e)=>dropCardHandler(e,board)}
+                  >
+              <h1>{board.title}</h1>
+              <hr/>
+              {
+                board.items.map(item=>{
+                  return <h2
+                  className='board-task'
+                  onDragOver={(e)=>dragOverHandler(e)}
+                  onDragLeave={(e)=>dragLeaveHandler(e)}
+                  onDragStart={(e)=>dragStartHandler(e,board,item)}
+                  onDragEnd={(e)=>dragEndHandler(e)}
+                  onDrop={(e)=>dropHandler(e,board,item)}
+                  key={item.id} 
+                  draggable={true}>{item.title}</h2>
+                })
+              }
+          </div>
+        })
+      }
+     
+    </div>
     <form onSubmit={createTaskHandler}>
-      <input onChange={(e)=>setTask(e.target.value)} value={task}/>
-    </form>
+        <input onChange={(e)=>setTask(e.target.value)} value={task}/>
+      </form>
   </div>
   )
 }

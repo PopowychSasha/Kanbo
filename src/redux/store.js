@@ -1,6 +1,7 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { authDataReducer } from './reducers/authDataReducer';
 import { accountDataReducer } from './reducers/accountDataReducer';
+import { boardsReducer } from './reducers/boards';
 import createSagaMiddleware from 'redux-saga';
 import { rootWatcher } from './saga';
 
@@ -9,6 +10,7 @@ const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({
 	authDataReducer,
 	accountDataReducer,
+	boardsReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));

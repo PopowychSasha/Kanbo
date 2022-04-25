@@ -33,7 +33,7 @@ const CreateBoardModal=({handleClickClose})=> {
       handleClickClose();
   }
   return (
-    <div>
+    <div >
       <Dialog
         open={open}
         TransitionComponent={Transition}

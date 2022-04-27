@@ -32,7 +32,7 @@ const TaskDetailsPage = () => {
 
 	useEffect(() => {
 		axios
-			.post('/api/task/details', { taskId: taskId })
+			.get(`/api/task/details/${taskId}`)
 			.then(res => {
 				setDetails(res.data.details);
 			})

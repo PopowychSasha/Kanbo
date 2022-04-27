@@ -19,7 +19,7 @@ const DeleteBoardModal = ({ open, handleClose, boardId }) => {
 	const removeBoards = () => {
     handleClose();
 		axios
-			.post('/api/board/delete', { boardId: boardId })
+			.delete(`/api/delete/board/${boardId}`)
 			.then(() => {
         console.log('getBoardsStart!');
 				dispatch(getBoardsStart());

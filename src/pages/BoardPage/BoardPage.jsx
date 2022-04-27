@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../shared/Header/Header';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import EdiText from 'react-editext';
 import './BoardPage.scss';
 
 const BoardPage = () => {
 	const boardId = useParams().id;
-    const [showAddTaskField,setShowAddTaskField] = useState(false);
+	const [showAddTaskField, setShowAddTaskField] = useState(false);
 	const [task, setTask] = useState('');
 	const [boards, setBoards] = useState([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		axios
-			.post('/api/tasks/board', {
-				boardId: boardId,
-			})
+			.get(`/api/tasks/board/${boardId}`)
 			.then(res => {
 				const todoTask = res.data.filter(task => {
 					if (task.status === 'Todo') {
@@ -148,7 +148,7 @@ const BoardPage = () => {
 
 	const createTaskHandler = e => {
 		e.preventDefault();
-		if(task){
+		if (task) {
 			setShowAddTaskField(false);
 			axios
 				.post('/api/task', { taskName: task, boardId: boardId })
@@ -163,11 +163,18 @@ const BoardPage = () => {
 				})
 				.catch(err => console.log(err.message));
 		}
-		
 
 		setTask('');
 	};
 
+	const onSavaEditTaskHandler = (editTask, taskId) => {
+		if(editTask!==""){
+			axios
+			.post('/api/task/edit', { taskId: taskId, editTask: editTask })
+			.then(res => console.log(res))
+			.catch(err => console.log(err.message));
+		}
+	};
 	return (
 		<div className='board-page-wrapper'>
 			<Header />
@@ -187,7 +194,10 @@ const BoardPage = () => {
 								}}>
 								<h1 style={{ color: 'teal' }}>{board.status}</h1>
 								{board.status === 'Todo' && (
-									<AddCircleIcon onClick={()=>setShowAddTaskField(p=>!p)} style={{ color: 'teal', cursor: 'pointer' }} />
+									<AddCircleIcon
+										onClick={() => setShowAddTaskField(p => !p)}
+										style={{ color: 'teal', cursor: 'pointer' }}
+									/>
 								)}
 							</div>
 							<hr />
@@ -205,6 +215,11 @@ const BoardPage = () => {
 													: { background: 'cadetblue' }
 											}
 											className='board-task'
+											onDoubleClick={() => {
+												console.log('Delete on double click');
+												console.log('navigatee');
+												navigate(`/task/details/${item.id}`);
+											}}
 											onDragOver={e => dragOverHandler(e)}
 											onDragLeave={e => dragLeaveHandler(e)}
 											onDragStart={e => dragStartHandler(e, board, item)}
@@ -212,16 +227,37 @@ const BoardPage = () => {
 											onDrop={e => dropHandler(e, board, item)}
 											key={item.id}
 											draggable={true}>
-											<Link to={`/task/details/${item.id}`} style={{ color: '#FFF' }}>
-												{item.name}
-											</Link>
+											<div
+												style={{
+													display: 'flex',
+													justifyContent: 'space-between',
+													padding: '0px 10px',
+												}}>
+												<EdiText 
+													style={{
+														display: 'flex',
+														margin: 'auto',
+														width: '100%',
+														alignItems: 'flex-end',
+													}}
+													type='text'
+													buttonsAlign='before'
+													value={item.name}
+													onSave={editTask => onSavaEditTaskHandler(editTask, item.id)}
+												/>
+											</div>
 										</h2>
 									);
 								})}
 							</div>
 							{board.status === 'Todo' && showAddTaskField && (
 								<form onSubmit={createTaskHandler}>
-									<input className='add-task-field' placeholder='task title' onChange={e => setTask(e.target.value)} value={task} />
+									<input
+										className='add-task-field'
+										placeholder='task title'
+										onChange={e => setTask(e.target.value)}
+										value={task}
+									/>
 								</form>
 							)}
 						</div>

@@ -23,6 +23,27 @@
                     margin-bottom: 3px;
                     overflow-wrap: break-word;
                     cursor:grab;
+                    button[editext='edit-button'] {
+                        &:hover {
+                          color: #fff;
+                        }
+                        background:none;
+                        border:none;
+                    }
+                    button[editext='save-button'] {
+                        &:hover {
+                          color: #fff;
+                        }
+                        background:none;
+                        border:none;
+                    }
+                    button[editext='cancel-button'] {
+                        &:hover {
+                          color: #fff;
+                        }
+                        background:none;
+                        border:none;
+                    }
                 }
             }
             .add-task-field{

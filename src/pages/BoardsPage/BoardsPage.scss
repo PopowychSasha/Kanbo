@@ -2,7 +2,7 @@
 	min-height: 100vh;
 	.board {
 		border: 1px solid silver;
-		height: 100px;
+		min-height: 100px;
 		width: 500px;
 		margin: auto;
 		cursor: pointer;
@@ -19,6 +19,8 @@
 			.left-part {
 				font-size: 25px;
 				color: #65b1fc;
+				max-width: 330px;
+				overflow-wrap: break-word;
 			}
 			.right-part {
 				color: grey;
@@ -47,7 +49,7 @@
 	}
 	.board:hover {
 		transition: 0.5s;
-		height: 110px;
+		min-height: 100px;
 		width: 530px;
 	}
 }

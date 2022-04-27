@@ -1,12 +1,12 @@
-import './App.scss';
-
 import { Navigate, Route, Routes } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 import StartedPage from '../../pages/StartedPage/StartedPage';
 import LoginPage from '../../pages/LoginPage/LoginPage';
 import BoardsPage from '../../pages/BoardsPage/BoardsPage';
-import { useSelector } from 'react-redux';
 import BoardPage from '../../pages/BoardPage/BoardPage';
+import TaskDetailsPage from '../BoardPage/TaskDetailsPage/TaskDetailsPage';
+import './App.scss';
+
 
 const App = () => {
 	const { isLogIn } = useSelector(store => store.authDataReducer);
@@ -17,6 +17,7 @@ const App = () => {
 			<Route path='/login' element={<LoginPage />} />
 			{isLogIn && <Route path='/boards' element={<BoardsPage />} />}
 			{isLogIn && <Route path='/board/:id' element={<BoardPage />} />}
+			{isLogIn && <Route path='/task/details/:id' element={<TaskDetailsPage />} />}
 			<Route path='*' element={<Navigate to='/' />} />
 		</Routes>
 	);

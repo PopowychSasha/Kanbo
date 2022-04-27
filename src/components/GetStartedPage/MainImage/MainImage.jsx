@@ -1,5 +1,4 @@
 import './MainImage.scss';
-
 import board from '../../../images/board.png';
 
 const MainImage = () => {

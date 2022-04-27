@@ -1,12 +1,10 @@
-import './SignUpForm.scss';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Backdrop, Button, CircularProgress } from '@mui/material';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
 import { authDataCreator } from '../../../redux/actionCreators/authDataCreator';
-import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { postSignUpUserData } from '../../../utils/postSignUpUserData';
 import SignUpFormFields from '../SignUpFormFields/SignUpFormFields';
 import {
@@ -15,6 +13,8 @@ import {
 	onChangePasswordHandler,
 } from '../../../utils/isSignUpFormDataValid';
 import ImagePicker from '../ImagePicker/ImagePicker';
+import 'react-toastify/dist/ReactToastify.css';
+import './SignUpForm.scss';
 
 const SignUpForm = ({ formsToggle }) => {
 	const [isEysClosed, setIsEysClosed] = useState();
@@ -30,7 +30,7 @@ const SignUpForm = ({ formsToggle }) => {
 	const [isLoader, setIsLoader] = useState(false);
 
 	const [pickedImageUrl, setPickedImageUrl] = useState('');
-	const [imageSelected,setImageSelected] = useState({});
+	const [imageSelected, setImageSelected] = useState({});
 
 	const toggleShowPasswordHandler = () => setIsEysClosed(isEysClosed => !isEysClosed);
 	const dispatch = useDispatch();
@@ -112,7 +112,6 @@ const SignUpForm = ({ formsToggle }) => {
 					setEmail={setEmail}
 				/>
 				<div className='image-picker-wrapper'>
-		
 					<ImagePicker
 						setPickedImageUrl={setPickedImageUrl}
 						setImageSelected={setImageSelected}

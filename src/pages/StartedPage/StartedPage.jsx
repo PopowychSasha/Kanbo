@@ -1,10 +1,8 @@
-import './StartedPage.scss';
-
-import MainImage from '../../components/GetStartedPage/MainImage/MainImage';
-import Text from '../../components/GetStartedPage/Text/Text';
-
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import MainImage from '../../components/GetStartedPage/MainImage/MainImage';
+import Text from '../../components/GetStartedPage/Text/Text';
+import './StartedPage.scss';
 
 const StartedPage = () => {
 	return (

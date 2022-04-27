@@ -1,15 +1,13 @@
-import './SignInForm.scss';
 import { useState } from 'react';
-import {
-	Button,
-} from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { authDataCreator } from '../../../redux/actionCreators/authDataCreator';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Button } from '@mui/material';
+import { authDataCreator } from '../../../redux/actionCreators/authDataCreator';
 import { postSignInUserData } from '../../../utils/postSignInUserData';
 import SignInFormFields from '../SignInFormFields/SignInFormFields';
+import 'react-toastify/dist/ReactToastify.css';
+import './SignInForm.scss';
 
 const SignInForm = ({ formsToggle }) => {
 	const [isEysClosed, setIsEysClosed] = useState(false);
@@ -31,19 +29,33 @@ const SignInForm = ({ formsToggle }) => {
 			toast.info('you must input nickname and password');
 			return;
 		}
-		postSignInUserData(nickname,password,dispatch,authDataCreator,navigate,setNickname,setPassword,toast);
+		postSignInUserData(
+			nickname,
+			password,
+			dispatch,
+			authDataCreator,
+			navigate,
+			setNickname,
+			setPassword,
+			toast,
+		);
 	};
 
-	const toggleShowPasswordHandler = () => setIsEysClosed(() => setIsEysClosed(isEysClosed=>!isEysClosed));
+	const toggleShowPasswordHandler = () =>
+		setIsEysClosed(() => setIsEysClosed(isEysClosed => !isEysClosed));
 
 	return (
 		<div className='sign-in-form-wrapper'>
 			<h3 className='sign-in-form-title'>SignIn</h3>
 			<form className='sign-in-form' onSubmit={onSubmitHandler}>
-				<SignInFormFields onChangeNicknameHandler={onChangeNicknameHandler}
-                    nickname={nickname} onChangePasswordHandler={onChangePasswordHandler}
-                    password={password} isEysClosed={isEysClosed} toggleShowPasswordHandler={toggleShowPasswordHandler}
-                />
+				<SignInFormFields
+					onChangeNicknameHandler={onChangeNicknameHandler}
+					nickname={nickname}
+					onChangePasswordHandler={onChangePasswordHandler}
+					password={password}
+					isEysClosed={isEysClosed}
+					toggleShowPasswordHandler={toggleShowPasswordHandler}
+				/>
 				<Button
 					type='submit'
 					className='sign-in-btn'

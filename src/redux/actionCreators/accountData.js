@@ -19,6 +19,6 @@ export const asyncAccountDataCreator = () => {
 
 export const removeAccountDataCreator = () => {
 	return {
-		type: REMOVE_SET_ACCOUNT_DATA
+		type: REMOVE_SET_ACCOUNT_DATA,
 	};
 };

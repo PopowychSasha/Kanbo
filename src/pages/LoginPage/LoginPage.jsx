@@ -1,10 +1,7 @@
-import './LoginPage.scss';
-
 import { useState } from 'react';
-
 import SignInForm from '../../components/LoginPage/SignInForm/SignInForm';
 import SignUpForm from '../../components/LoginPage/SignUpForm/SignUpForm';
-
+import './LoginPage.scss';
 import man from '../../images/man.png';
 
 const LoginPage = () => {

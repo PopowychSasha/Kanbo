@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getBoardsStart } from '../../redux/actionCreators/boards';
-import Header from '../../shared/Header/Header';
 import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-import './BoardsPage.scss';
+import { getBoardsStart } from '../../redux/actionCreators/boards';
+import Header from '../../shared/Header/Header';
 import DeleteBoardModal from '../../components/BoardsPage/DeleteBoardModal/DeleteBoardModal';
+import './BoardsPage.scss';
 
 const BoardsListPage = () => {
 	const dispatch = useDispatch();

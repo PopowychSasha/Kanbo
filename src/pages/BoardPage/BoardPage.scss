@@ -17,8 +17,10 @@
             .board-task{
                 background-color:darkseagreen;
                 padding: 10px 0px;
-                color:#FFFFFF;
+                color:#FFF;
                 margin-bottom: 3px;
+                overflow-wrap: break-word;
+                cursor:grab;
             }
         }
     }

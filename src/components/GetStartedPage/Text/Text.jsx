@@ -7,7 +7,7 @@ const Text = () => {
 				<span className='main-word'>Kanbo</span> helps you get things done faster and more
 				efficiently
 			</div>
-			<div className='sub-title'>
+			<div className='  sub-title'>
 				Collaborate, manage projects and enhance your productivity. With{' '}
 				<span className='main-word'>Kanbo</span>, your team will succeed.
 			</div>

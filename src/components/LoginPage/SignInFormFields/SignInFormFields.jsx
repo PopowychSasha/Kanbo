@@ -1,10 +1,22 @@
-import { FormControl, IconButton, Input, InputAdornment, InputLabel } from '@mui/material';
-import './SignInFormFields.scss';
+import {
+	FormControl,
+	IconButton,
+	Input,
+	InputAdornment,
+	InputLabel,
+} from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import './SignInFormFields.scss';
 
-const SignInFormFields = ({onChangeNicknameHandler,nickname
-    ,onChangePasswordHandler,password,isEysClosed,toggleShowPasswordHandler}) => {
+const SignInFormFields = ({
+	onChangeNicknameHandler,
+	nickname,
+	onChangePasswordHandler,
+	password,
+	isEysClosed,
+	toggleShowPasswordHandler,
+}) => {
 	return (
 		<>
 			<FormControl variant='standard'>

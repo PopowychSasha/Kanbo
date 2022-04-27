@@ -13,7 +13,7 @@ const BoardsListPage = () => {
 	const boards = useSelector(store => store.boardsReducer);
     const [boardId,setBoardId] = useState();
 	const [open, setOpen] = useState(false);
-
+  
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
@@ -45,7 +45,7 @@ const BoardsListPage = () => {
 								}}>
 									<DeleteIcon />
 								</div>
-								<h4>{moment(board.createdAt).format('YYYY-MM-DD.HH:mm:ss')}</h4>
+								<h4>{moment(board.createdAt).format('YYYY-MM-DD')}</h4>
 							</div>
 						</NavLink>
 						<DeleteBoardModal open={open} handleClose={handleClose} boardId={boardId}/>

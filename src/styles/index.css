@@ -25,3 +25,18 @@ code {
 a{
   text-decoration: none;
 }
+::-webkit-scrollbar{
+  width: 5px;
+  padding: 20px;
+}
+
+::-webkit-scrollbar-track{
+  background:#FFFFFF;
+  display: none;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#94BDE5;
+  border-radius:20px;
+  margin: 30px;
+}

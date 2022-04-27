@@ -25,6 +25,7 @@ const HeaderDropDown = () => {
   const [openCreateBoardModal, setOpenCreateBoardModal] = useState(false);
 
   const handleClickOpen = () => {
+    navigate('/boards');
     setOpenCreateBoardModal(true);
   };
 

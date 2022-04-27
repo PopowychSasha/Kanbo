@@ -1,4 +1,3 @@
-
 import { Editor } from '@tinymce/tinymce-react';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
@@ -7,43 +6,60 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './TaskDetailsPage.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const TaskDetailsPage = ()=>{
-  const navigate = useNavigate();
-  const editorRef = useRef(null);
-  const[details,setDetails] = useState('');
-  const taskId = useParams().id;
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-    const details = editorRef.current.getContent();
-    axios.post('/api/task/create/details',{taskId,details:details})
-    .then(res=>{
-        console.log(res);
-        setDetails(res.data);
-    })
-    .catch(err=>{
-        console.log(err.message);
-    })
-  };
-  
-  useEffect(()=>{
-      axios.post('/api/task/details',{taskId:taskId})
-      .then(res=>{
-          console.log('use');
-          console.log(res);
-          setDetails(res.data.details);
-      })
-      .catch(err=>console.log(err.message))
-  },[])
+const TaskDetailsPage = () => {
+	const navigate = useNavigate();
+	const editorRef = useRef(null);
+	const [details, setDetails] = useState('');
+	const taskId = useParams().id;
+	const [isChanges, setIsChanges] = useState(false);
+  console.log(`taskId=${taskId}`);
 
-  return (
-		<div>
-			<SaveIcon style={{cursor:'pointer'}} onClick={log}>Save</SaveIcon>
-			<ArrowBackIcon style={{cursor:'pointer'}} onClick={()=>navigate(-1)}>GoBack</ArrowBackIcon>
+	const log = () => {
+		setIsChanges(false);
+		if (editorRef.current) {
+			console.log(editorRef.current.getContent());
+		}
+		const details = editorRef.current.getContent();
+		axios
+			.post('/api/task/create/details', { taskId, details: details })
+			.then(res => {
+				setDetails(res.data);
+			})
+			.catch(err => {
+				console.log(err.message);
+			});
+	};
+
+	useEffect(() => {
+		axios
+			.post('/api/task/details', { taskId: taskId })
+			.then(res => {
+				setDetails(res.data.details);
+			})
+			.catch(err => console.log(err.message));
+	}, []);
+
+	return (
+		<div className='details-task-wrapper'>
+			<SaveIcon
+				style={{
+					cursor: 'pointer',
+					fontSize: '50px',
+					color: isChanges === true ? 'red' : 'teal',
+				}}
+				onClick={log}>
+				Save
+			</SaveIcon>
+			<ArrowBackIcon
+				style={{ cursor: 'pointer', fontSize: '50px' }}
+				onClick={() => navigate(-1)}>
+				GoBack
+			</ArrowBackIcon>
 			<Editor
 				onInit={(evt, editor) => (editorRef.current = editor)}
-				onChange={e => console.log(e.target.value)}
+				onEditorChange={() => {
+					setIsChanges(true);
+				}}
 				initialValue={details}
 				init={{
 					selector: 'textarea',
@@ -52,11 +68,12 @@ const TaskDetailsPage = ()=>{
 					fontsize_formats:
 						'8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt 30pt 36pt 48pt 60pt 72pt 96pt',
 					content_style: 'body { font-size: 14pt; }',
-					height: '95vh',
+					height: '75vh',
+					width: '75vw',
 				}}
 			/>
 		</div>
 	);
-}
+};
 
 export default TaskDetailsPage;

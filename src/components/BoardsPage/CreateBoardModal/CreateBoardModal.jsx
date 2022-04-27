@@ -22,6 +22,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 const CreateBoardModal = ({ handleClickClose }) => {
 	const [boardType, setBoardType] = useState('');
 	const [boardName, setBoardName] = useState('');
+	
 	const navigate = useNavigate();
 
 	const setBoardTypeHandler = e => {
@@ -40,7 +41,14 @@ const CreateBoardModal = ({ handleClickClose }) => {
 					console.log(res);
 					navigate(`/board/${res.data.id}`);
 				})
-				.catch(err => console.log(err.message));
+				.catch((err) => {
+					if (err.response) {
+						if(err.response.status===401){
+							alert('You are unauthorize. Sign in again');
+							navigate('/login');		
+						}
+					}
+				});
 			handleClickClose();
 		} else {
 			toast.warning('Name and type of board must be selected');
@@ -74,13 +82,13 @@ const CreateBoardModal = ({ handleClickClose }) => {
 							<FormControlLabel
 								onClick={setBoardTypeHandler}
 								value='single'
-								control={<Radio />}
+								control={<Radio/>}
 								label='SINGLE BOARD'
 							/>
 							<FormControlLabel
 								onClick={setBoardTypeHandler}
 								value='command'
-								control={<Radio />}
+								control={<Radio/>}
 								label='COMMAND  BOARD'
 							/>
 						</div>

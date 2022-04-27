@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../shared/Header/Header';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './BoardPage.scss';
 
 const BoardPage = () => {
 	const boardId = useParams().id;
-
+    const [showAddTaskField,setShowAddTaskField] = useState(false);
 	const [task, setTask] = useState('');
-	const [boards, setBoards] = useState([
-		
-	]);
+	const [boards, setBoards] = useState([]);
 
 	useEffect(() => {
 		axios
@@ -149,23 +148,26 @@ const BoardPage = () => {
 
 	const createTaskHandler = e => {
 		e.preventDefault();
-
-		axios
-			.post('/api/task', { taskName: task, boardId: boardId })
-			.then(res => {
-				const boardsClone = JSON.parse(JSON.stringify(boards));
-				boardsClone[0] = {
-					id: 1,
-					status: 'Todo',
-					items: [...boardsClone[0].items, { id: res.data.id, name: task }],
-				};
-				setBoards([...boardsClone]);
-			})
-			.catch(err => console.log(err.message));
+		if(task){
+			setShowAddTaskField(false);
+			axios
+				.post('/api/task', { taskName: task, boardId: boardId })
+				.then(res => {
+					const boardsClone = JSON.parse(JSON.stringify(boards));
+					boardsClone[0] = {
+						id: 1,
+						status: 'Todo',
+						items: [...boardsClone[0].items, { id: res.data.id, name: task }],
+					};
+					setBoards([...boardsClone]);
+				})
+				.catch(err => console.log(err.message));
+		}
+		
 
 		setTask('');
 	};
-  
+
 	return (
 		<div className='board-page-wrapper'>
 			<Header />
@@ -177,42 +179,55 @@ const BoardPage = () => {
 							key={board.id}
 							onDragOver={e => dragOverHandler(e)}
 							onDrop={e => dropCardHandler(e, board)}>
-							<h1>{board.status}</h1>
+							<div
+								style={{
+									display: 'flex',
+									justifyContent: 'space-around',
+									alignItems: 'center',
+								}}>
+								<h1 style={{ color: 'teal' }}>{board.status}</h1>
+								{board.status === 'Todo' && (
+									<AddCircleIcon onClick={()=>setShowAddTaskField(p=>!p)} style={{ color: 'teal', cursor: 'pointer' }} />
+								)}
+							</div>
 							<hr />
-							{board.items.map(item => {
-								return (<h2
-										style={
-											board.status === 'Todo'
-												? { background: '#65B1FC'}
-												: board.status === 'InProgress'
-												? { background: 'red' }
-												: board.status === 'Waiting'
-												? { background: 'orange' }
-												: { background: 'cadetblue' }
-										}
-										className='board-task'
-										onDragOver={e => dragOverHandler(e)}
-										onDragLeave={e => dragLeaveHandler(e)}
-										onDragStart={e => dragStartHandler(e, board, item)}
-										onDragEnd={e => dragEndHandler(e)}
-										onDrop={e => dropHandler(e, board, item)}
-										key={item.id}
-										draggable={true}>
-                       <Link to={`/task/details/${item.id}`} style={{color:'#FFF'}}>
-                          {item.name}
-                      </Link>
-									</h2>
-								);
-							})}
+							<div className='tasks'>
+								{board.items.map(item => {
+									return (
+										<h2
+											style={
+												board.status === 'Todo'
+													? { background: '#65B1FC' }
+													: board.status === 'InProgress'
+													? { background: 'red' }
+													: board.status === 'Waiting'
+													? { background: 'orange' }
+													: { background: 'cadetblue' }
+											}
+											className='board-task'
+											onDragOver={e => dragOverHandler(e)}
+											onDragLeave={e => dragLeaveHandler(e)}
+											onDragStart={e => dragStartHandler(e, board, item)}
+											onDragEnd={e => dragEndHandler(e)}
+											onDrop={e => dropHandler(e, board, item)}
+											key={item.id}
+											draggable={true}>
+											<Link to={`/task/details/${item.id}`} style={{ color: '#FFF' }}>
+												{item.name}
+											</Link>
+										</h2>
+									);
+								})}
+							</div>
+							{board.status === 'Todo' && showAddTaskField && (
+								<form onSubmit={createTaskHandler}>
+									<input className='add-task-field' placeholder='task title' onChange={e => setTask(e.target.value)} value={task} />
+								</form>
+							)}
 						</div>
 					);
 				})}
 			</div>
-			<form onSubmit={createTaskHandler}>
-				<input onChange={e => setTask(e.target.value)} value={task} /> 
-			</form>
-      
-       
 		</div>
 	);
 };

@@ -1,71 +1,23 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../shared/Header/Header';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import EdiText from 'react-editext';
 import './BoardPage.scss';
+import { getTasksForBoard } from '../../utils/getTaskForBoard';
+import BoardColums from '../../components/BoardPage/BoardColums/BoardColums';
 
 const BoardPage = () => {
 	const boardId = useParams().id;
 	const [showAddTaskField, setShowAddTaskField] = useState(false);
 	const [task, setTask] = useState('');
 	const [boards, setBoards] = useState([]);
-	const navigate = useNavigate();
+	const [boardName,setBoardName] = useState('');
 
 	useEffect(() => {
-		axios
-			.get(`/api/tasks/board/${boardId}`)
-			.then(res => {
-				const todoTask = res.data.filter(task => {
-					if (task.status === 'Todo') {
-						return {
-							id: task.id,
-							name: task.name,
-							createdAt: task.createdAt,
-						};
-					}
-				});
-				let boardsClone = JSON.parse(JSON.stringify(boards));
-				boardsClone[0] = { id: 1, status: 'Todo', items: [...todoTask] };
-				setBoards([...boardsClone]);
-				//=====================================
-				const inProgressTask = res.data.filter(task => {
-					if (task.status === 'InProgress') {
-						return {
-							id: task.id,
-							name: task.name,
-							createdAt: task.createdAt,
-						};
-					}
-				});
-				boardsClone[1] = { id: 2, status: 'InProgress', items: [...inProgressTask] };
-				setBoards([...boardsClone]);
-				//=====================================
-				const waitingTask = res.data.filter(task => {
-					if (task.status === 'Waiting') {
-						return {
-							id: task.id,
-							name: task.name,
-							createdAt: task.createdAt,
-						};
-					}
-				});
-				boardsClone[2] = { id: 3, status: 'Waiting', items: [...waitingTask] };
-				setBoards([...boardsClone]);
-				//=====================================
-				const doneTask = res.data.filter(task => {
-					if (task.status === 'Done') {
-						return {
-							id: task.id,
-							name: task.name,
-							createdAt: task.createdAt,
-						};
-					}
-				});
-				boardsClone[3] = { id: 4, status: 'Done', items: [...doneTask] };
-				setBoards([...boardsClone]);
-			});
+		getTasksForBoard(boardId, boards, setBoards);
+		axios.get(`/api/board/name/${boardId}`)
+		.then(res=>setBoardName(res.data.name))
+		.catch(err=>console.log(err.message))
 	}, []);
 
 	const [currentBoard, setCurrentBoard] = useState(null);
@@ -96,7 +48,7 @@ const BoardPage = () => {
 		const dropIndex = board.items.indexOf(item);
 
 		board.items.splice(dropIndex + 1, 0, currentItem);
-
+		
 		axios
 			.post('/api/task/status', {
 				id: currentItem.id,
@@ -147,6 +99,7 @@ const BoardPage = () => {
 	};
 
 	const createTaskHandler = e => {
+		
 		e.preventDefault();
 		if (task) {
 			setShowAddTaskField(false);
@@ -168,102 +121,32 @@ const BoardPage = () => {
 	};
 
 	const onSavaEditTaskHandler = (editTask, taskId) => {
-		if(editTask!==""){
+		if (editTask !== '') {
 			axios
-			.post('/api/task/edit', { taskId: taskId, editTask: editTask })
-			.then(res => console.log(res))
-			.catch(err => console.log(err.message));
+				.post('/api/task/edit', { taskId: taskId, editTask: editTask })
+				.then(res => console.log(res))
+				.catch(err => console.log(err.message));
 		}
 	};
 	return (
 		<div className='board-page-wrapper'>
 			<Header />
-			<div className='board-wrapper'>
-				{boards.map(board => {
-					return (
-						<div
-							className='board-part'
-							key={board.id}
-							onDragOver={e => dragOverHandler(e)}
-							onDrop={e => dropCardHandler(e, board)}>
-							<div
-								style={{
-									display: 'flex',
-									justifyContent: 'space-around',
-									alignItems: 'center',
-								}}>
-								<h1 style={{ color: 'teal' }}>{board.status}</h1>
-								{board.status === 'Todo' && (
-									<AddCircleIcon
-										onClick={() => setShowAddTaskField(p => !p)}
-										style={{ color: 'teal', cursor: 'pointer' }}
-									/>
-								)}
-							</div>
-							<hr />
-							<div className='tasks'>
-								{board.items.map(item => {
-									return (
-										<h2
-											style={
-												board.status === 'Todo'
-													? { background: '#65B1FC' }
-													: board.status === 'InProgress'
-													? { background: 'red' }
-													: board.status === 'Waiting'
-													? { background: 'orange' }
-													: { background: 'cadetblue' }
-											}
-											className='board-task'
-											onDoubleClick={() => {
-												console.log('Delete on double click');
-												console.log('navigatee');
-												navigate(`/task/details/${item.id}`);
-											}}
-											onDragOver={e => dragOverHandler(e)}
-											onDragLeave={e => dragLeaveHandler(e)}
-											onDragStart={e => dragStartHandler(e, board, item)}
-											onDragEnd={e => dragEndHandler(e)}
-											onDrop={e => dropHandler(e, board, item)}
-											key={item.id}
-											draggable={true}>
-											<div
-												style={{
-													display: 'flex',
-													justifyContent: 'space-between',
-													padding: '0px 10px',
-												}}>
-												<EdiText 
-													style={{
-														display: 'flex',
-														margin: 'auto',
-														width: '100%',
-														alignItems: 'flex-end',
-													}}
-													type='text'
-													buttonsAlign='before'
-													value={item.name}
-													onSave={editTask => onSavaEditTaskHandler(editTask, item.id)}
-												/>
-											</div>
-										</h2>
-									);
-								})}
-							</div>
-							{board.status === 'Todo' && showAddTaskField && (
-								<form onSubmit={createTaskHandler}>
-									<input
-										className='add-task-field'
-										placeholder='task title'
-										onChange={e => setTask(e.target.value)}
-										value={task}
-									/>
-								</form>
-							)}
-						</div>
-					);
-				})}
-			</div>
+			<h2 className='board-name'>{boardName}</h2>
+			<BoardColums
+				boards={boards}
+				dragOverHandler={dragOverHandler}
+				dropCardHandler={dropCardHandler}
+				setShowAddTaskField={setShowAddTaskField}
+				dragLeaveHandler={dragLeaveHandler}
+				dragStartHandler={dragStartHandler}
+				dragEndHandler={dragEndHandler}
+				dropHandler={dropHandler}
+				onSavaEditTaskHandler={onSavaEditTaskHandler}
+				showAddTaskField={showAddTaskField}
+				createTaskHandler={createTaskHandler}
+				setTask={setTask}
+				task={task}
+			/>
 		</div>
 	);
 };

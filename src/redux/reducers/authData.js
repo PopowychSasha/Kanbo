@@ -1,4 +1,4 @@
-import { SET_AUTH_DATA } from '../actionTypes/authDataActionTypes';
+import { SET_AUTH_DATA } from '../actionTypes/authData';
 
 const setInitialState = () => {
 	const token = document.cookie.split('=')[1];

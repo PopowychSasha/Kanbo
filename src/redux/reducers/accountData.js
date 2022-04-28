@@ -1,4 +1,4 @@
-import { REMOVE_SET_ACCOUNT_DATA, SET_ACCOUNT_DATA } from '../actionTypes/accountDataActionTypes';
+import { REMOVE_SET_ACCOUNT_DATA, SET_ACCOUNT_DATA } from '../actionTypes/accountData';
 
 const initialState = {};
 

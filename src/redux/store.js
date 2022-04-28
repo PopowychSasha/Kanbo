@@ -1,6 +1,6 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-import { authDataReducer } from './reducers/authDataReducer';
-import { accountDataReducer } from './reducers/accountDataReducer';
+import { authDataReducer } from './reducers/authData';
+import { accountDataReducer } from './reducers/accountData';
 import { boardsReducer } from './reducers/boards';
 import createSagaMiddleware from 'redux-saga';
 import { rootWatcher } from './saga';

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { accountDataCreator } from '../actionCreators/accountData';
-import { ASYNC_SET_ACCOUNT_DATA } from '../actionTypes/accountDataActionTypes';
+import { ASYNC_SET_ACCOUNT_DATA } from '../actionTypes/accountData';
 const fetchAccountData = () => axios.get('/api/account');
 
 function* accountWorker() {

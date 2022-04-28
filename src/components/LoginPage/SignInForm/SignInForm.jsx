@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { Button } from '@mui/material';
-import { authDataCreator } from '../../../redux/actionCreators/authDataCreator';
+import { authDataCreator } from '../../../redux/actionCreators/authData';
 import { postSignInUserData } from '../../../utils/postSignInUserData';
 import SignInFormFields from '../SignInFormFields/SignInFormFields';
 import 'react-toastify/dist/ReactToastify.css';

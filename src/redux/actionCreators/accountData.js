@@ -2,7 +2,7 @@ import {
 	ASYNC_SET_ACCOUNT_DATA,
 	REMOVE_SET_ACCOUNT_DATA,
 	SET_ACCOUNT_DATA,
-} from '../actionTypes/accountDataActionTypes';
+} from '../actionTypes/accountData';
 
 export const accountDataCreator = data => {
 	return {

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Backdrop, Button, CircularProgress } from '@mui/material';
 import axios from 'axios';
-import { authDataCreator } from '../../../redux/actionCreators/authDataCreator';
+import { authDataCreator } from '../../../redux/actionCreators/authData';
 import { ToastContainer, toast } from 'react-toastify';
 import { postSignUpUserData } from '../../../utils/postSignUpUserData';
 import SignUpFormFields from '../SignUpFormFields/SignUpFormFields';

@@ -1,4 +1,4 @@
-import { SET_AUTH_DATA } from '../actionTypes/authDataActionTypes';
+import { SET_AUTH_DATA } from '../actionTypes/authData';
 
 export const authDataCreator = authData => {
 	return {

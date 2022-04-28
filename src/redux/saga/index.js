@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects';
-import { accountWatcher } from './accountSaga';
+import { accountWatcher } from './account';
 import { boardsWatcher } from './boards';
 
 export function* rootWatcher() {

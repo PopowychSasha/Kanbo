@@ -1,6 +1,17 @@
 .boards-page-wrapper {
 	min-height: 100vh;
 	padding-bottom: 75px;
+	.search-boards-input{
+		width: 500px;
+		display: block;
+		margin: auto;
+		background:#FFFFFF;
+		margin-bottom: 25px;
+		height: 40px;
+		font-size: 20px;
+		text-align: center;
+		border-radius:20px;
+	}
 	.board {
 		border: 1px solid silver;
 		min-height: 100px;
@@ -52,5 +63,18 @@
 		transition: 0.5s;
 		min-height: 100px;
 		width: 530px;
+	}
+	.empty-board{
+		width: 300px;
+		display: block;
+		margin: auto;
+		margin-top: 100px;
+	}
+	.empty-board-title{
+		display: block;
+		margin: auto;
+		text-align: center;
+		font-size: 18px;
+		margin-top: 10px;
 	}
 }

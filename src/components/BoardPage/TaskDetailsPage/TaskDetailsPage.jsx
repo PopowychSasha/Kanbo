@@ -5,6 +5,9 @@ import SaveIcon from '@mui/icons-material/Save';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './TaskDetailsPage.scss';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeTaskStatus, getTaskDataStart } from '../../../redux/actionCreators/task';
+import moment from 'moment';
 
 const TaskDetailsPage = () => {
 	const navigate = useNavigate();
@@ -12,7 +15,11 @@ const TaskDetailsPage = () => {
 	const [details, setDetails] = useState('');
 	const taskId = useParams().id;
 	const [isChanges, setIsChanges] = useState(false);
-  console.log(`taskId=${taskId}`);
+	const taskData = useSelector(store => store.taskReducer);
+	const dispatch = useDispatch();
+
+	console.log('taskData()');
+	console.log(taskData);
 
 	const log = () => {
 		setIsChanges(false);
@@ -30,7 +37,20 @@ const TaskDetailsPage = () => {
 			});
 	};
 
+	const changeTaskStatusHandler = (status)=>{
+		dispatch(changeTaskStatus(status))
+		axios
+			.post('/api/task/status', {
+				id: taskData.id,
+				status: status,
+			})
+			.then(() => {
+				console.log('Change position');
+			})
+			.catch(err => console.log(err.message));
+	}
 	useEffect(() => {
+		dispatch(getTaskDataStart(taskId));
 		axios
 			.get(`/api/task/details/${taskId}`)
 			.then(res => {
@@ -38,7 +58,6 @@ const TaskDetailsPage = () => {
 			})
 			.catch(err => console.log(err.message));
 	}, []);
-
 	return (
 		<div className='details-task-wrapper'>
 			<SaveIcon
@@ -55,6 +74,23 @@ const TaskDetailsPage = () => {
 				onClick={() => navigate(-1)}>
 				GoBack
 			</ArrowBackIcon>
+			<h3>
+				<span title='taskTitle'>
+					{taskData.name}/
+				</span>
+				<span title='createdAt'>
+					{moment(taskData.createdAt).format('YYYY-MM-DD.HH:mm')}
+				</span>/
+				<span title='updateAt'>
+					{moment(taskData.updateAt).format('YYYY-MM-DD.HH:mm')}
+				</span>
+			</h3>
+			<div className='task-status-type'>
+				<div className={taskData.status === 'Todo' && 'active'} onClick={()=>changeTaskStatusHandler('Todo')}>Todo</div>
+				<div className={taskData.status === 'InProgress' && 'active'} onClick={()=>changeTaskStatusHandler('InProgress')}>InProgress</div>
+				<div className={taskData.status === 'Waiting' && 'active'} onClick={()=>changeTaskStatusHandler('Waiting')}>Waiting</div>
+				<div className={taskData.status === 'Done' && 'active'} onClick={()=>changeTaskStatusHandler('Done')}>Done</div>
+			</div>
 			<Editor
 				onInit={(evt, editor) => (editorRef.current = editor)}
 				onEditorChange={() => {

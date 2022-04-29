@@ -2,7 +2,7 @@ import { GET_BOARDS_START, GET_BOARDS_SUCCESS } from "../actionTypes/boards"
 
 export const getBoardsStart = ()=>{
     return {
-        type:GET_BOARDS_START
+        type:GET_BOARDS_START,
     }
 }
 

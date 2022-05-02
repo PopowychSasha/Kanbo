@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTaskStatus, getTaskDataStart } from '../../../redux/actionCreators/task';
 import moment from 'moment';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const TaskDetailsPage = () => {
 	const navigate = useNavigate();
@@ -58,6 +59,16 @@ const TaskDetailsPage = () => {
 			})
 			.catch(err => console.log(err.message));
 	}, []);
+
+	const deleteTaskHandler = ()=>{
+		axios.delete(`/api/task/${taskId}`)
+		.then(res=>{
+			console.log(res);
+			navigate(-1);
+		})
+		.catch(err=>console.log(err.message))
+	}
+
 	return (
 		<div className='details-task-wrapper'>
 			<SaveIcon
@@ -90,6 +101,9 @@ const TaskDetailsPage = () => {
 				<div className={taskData.status === 'InProgress' && 'active'} onClick={()=>changeTaskStatusHandler('InProgress')}>InProgress</div>
 				<div className={taskData.status === 'Waiting' && 'active'} onClick={()=>changeTaskStatusHandler('Waiting')}>Waiting</div>
 				<div className={taskData.status === 'Done' && 'active'} onClick={()=>changeTaskStatusHandler('Done')}>Done</div>
+				
+				<DeleteIcon className='delete-task-icon' onClick={()=>deleteTaskHandler()}/>
+				
 			</div>
 			<Editor
 				onInit={(evt, editor) => (editorRef.current = editor)}

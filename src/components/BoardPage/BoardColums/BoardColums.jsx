@@ -1,6 +1,7 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import EdiText from 'react-editext';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 import './BoardColums.scss';
 
 const BoardColums = ({
@@ -45,6 +46,7 @@ const BoardColums = ({
 						<hr />
 						<div className='tasks'>
 							{board.items.map(item => {
+								console.log(moment(item.deadLine).format('YYYY-MM-DD.HH:mm')<moment(new Date()).format('YYYY-MM-DD.HH:mm'));
 								return (
 									<h2
 										style={
@@ -56,7 +58,8 @@ const BoardColums = ({
 												? { background: 'orange' }
 												: { background: 'cadetblue' }
 										}
-										className='board-task'
+										className={(moment(item.deadLine).format('YYYY-MM-DD.HH:mm')<moment(new Date()).format('YYYY-MM-DD.HH:mm')&& (item.status==='Todo' || item.status==='InProgress' ||item.status==='Waiting'))  ? 'undone' : 'board-task'}
+										
 										onDoubleClick={() => {
 											console.log('Delete on double click');
 											console.log('navigatee');

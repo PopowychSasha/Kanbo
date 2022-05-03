@@ -43,6 +43,38 @@
                     border:none;
                 }
             }
+            .undone{
+                rotate: 50deg;
+                color:pink;
+                animation:flicker 0.5s infinite alternate;
+                padding: 10px 0px;
+                color:#FFF;
+                margin-bottom: 3px;
+                overflow-wrap: break-word;
+                background:default;
+                cursor:grab;
+                button[editext='edit-button'] {
+                    &:hover {
+                      color: #fff;
+                    }
+                    background:none;
+                    border:none;
+                }
+                button[editext='save-button'] {
+                    &:hover {
+                      color: #fff;
+                    }
+                    background:none;
+                    border:none;
+                }
+                button[editext='cancel-button'] {
+                    &:hover {
+                      color: #fff;
+                    }
+                    background:none;
+                    border:none;
+                }
+            }
         }
         .add-task-field{
             height: 50px;
@@ -53,3 +85,19 @@
         }
     }
 }
+
+@keyframes flicker {
+    0%{
+        color:#FFFFFF;
+        font-size: 20px;
+        background:aqua!important;
+        rotate: 10deg;
+        background:black;
+    }
+    100%{
+        color:#FFFFFF;
+        font-size: 25px;
+        rotate: 50deg;
+        background:red;
+    }
+  }

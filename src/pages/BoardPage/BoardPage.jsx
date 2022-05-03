@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../shared/Header/Header';
 import './BoardPage.scss';
 import { getTasksForBoard } from '../../utils/getTaskForBoard';
 import BoardColums from '../../components/BoardPage/BoardColums/BoardColums';
+import { toast, ToastContainer } from 'react-toastify';
 
 const BoardPage = () => {
 	const boardId = useParams().id;
@@ -12,12 +13,24 @@ const BoardPage = () => {
 	const [task, setTask] = useState('');
 	const [boards, setBoards] = useState([]);
 	const [boardName,setBoardName] = useState('');
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		getTasksForBoard(boardId, boards, setBoards);
+		
 		axios.get(`/api/board/name/${boardId}`)
-		.then(res=>setBoardName(res.data.name))
-		.catch(err=>console.log(err.message))
+		.then(res=>{
+			setBoardName(res.data.name);
+			getTasksForBoard(boardId, boards, setBoards);
+		})
+		.catch(()=>{
+			toast.error('Access deny');
+			setTimeout(()=>{
+				navigate(-1);
+			},2000);
+			/* 
+			alert('Access deny!!!');
+			console.log(err.message) */
+		})
 	}, []);
 
 	const [currentBoard, setCurrentBoard] = useState(null);
@@ -147,6 +160,17 @@ const BoardPage = () => {
 				setTask={setTask}
 				task={task}
 			/>
+			<ToastContainer limit={1}
+					position='bottom-right'
+					autoClose={1500}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+				/>
 		</div>
 	);
 };

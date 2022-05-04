@@ -1,3 +1,48 @@
 .setting-page-wrapper{
     min-height: 100vh;
+    .avatar-icon{
+        width: 85px;
+        display: block;
+        margin: auto;
+        margin-top: 10px;
+    }
+    .user-nickname{
+        display: block;
+        margin: auto;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 35px;
+        font-weight: 700;
+    }
+    .settings-title,.password-title{
+        width: 400px;
+        margin: auto;
+        font-size: 20px;
+        margin-top: 20px;
+    }
+    .image-picker-wrapper {
+        display: flex;
+        .picked-image {
+            width: 130px;
+            height: 100px;
+            margin: auto;
+            img {
+                display: block;
+                width: 75px;
+                height: 75px;
+                border-radius: 10px;
+                margin: auto;
+                border-radius: 100%;
+                margin-top: 20px;
+            }
+        }
+    }
+    .settings-form{
+        width: 400px;
+        margin: auto;
+        .nickname-wrapper,.email-wrapper{
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 }

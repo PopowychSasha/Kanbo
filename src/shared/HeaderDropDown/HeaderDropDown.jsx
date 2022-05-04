@@ -9,6 +9,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { removeAccountDataCreator } from '../../redux/actionCreators/accountData';
 import CreateBoardModal from '../../components/BoardsPage/CreateBoardModal/CreateBoardModal';
+import SettingsIcon from '@mui/icons-material/Settings';
 import './HeaderDropDown.scss';
 
 const HeaderDropDown = () => { 
@@ -33,6 +34,10 @@ const HeaderDropDown = () => {
     setOpenCreateBoardModal(false);
   };
 
+  const goToSettingHandler = ()=>{
+    navigate('/account/settings');
+  }
+
   return (
     <div>
       <FormControl  sx={{ m: 1, width: 40 }}>
@@ -43,6 +48,9 @@ const HeaderDropDown = () => {
         >
           <MenuItem onClick={handleClickOpen} /* onClick={logoutHandler} */ sx={{ width: 200,display:'flex',justifyContent:'space-between' }}><div>create board</div>
             <AddCircleOutlineIcon/> 
+          </MenuItem>
+          <MenuItem onClick={goToSettingHandler} /* onClick={logoutHandler} */ sx={{ width: 200,display:'flex',justifyContent:'space-between' }}><div>settings</div>
+            <SettingsIcon/> 
           </MenuItem>
           <MenuItem onClick={logoutHandler} sx={{ width: 200,display:'flex',justifyContent:'space-between' }}><div>exit</div>
             <ExitToAppIcon/> 

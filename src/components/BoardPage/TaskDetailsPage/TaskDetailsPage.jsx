@@ -90,7 +90,7 @@ const TaskDetailsPage = () => {
 		.then(res=>console.log(res))
 		.catch(err=>console.log(err))
 	}
-
+	
 	return (
 		<div className='details-task-wrapper'>
 			<div style={{display:'flex'}}>
@@ -130,7 +130,7 @@ const TaskDetailsPage = () => {
 			<div style={{position:'absolute',zIndex:'1',top:'160px'}}>
 				<DateTimePicker onChange={setDeadline} value={deadline} />
 				<BeenhereIcon onClick={setDeadLineForTask}/>
-				<span>{moment(deadline).format('YYYY-MM-DD.HH:mm:ss')}</span>
+				<span>{moment(taskData.deadLine).format('YYYY-MM-DD.HH:mm:ss')}</span>
 			</div>
 			<div style={{position:'absolute',zIndex:'0',top:'210px'}}>
 				<Editor

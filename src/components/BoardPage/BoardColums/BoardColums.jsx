@@ -46,7 +46,10 @@ const BoardColums = ({
 						<hr />
 						<div className='tasks'>
 							{board.items.map(item => {
-								console.log(moment(item.deadLine).format('YYYY-MM-DD.HH:mm')<moment(new Date()).format('YYYY-MM-DD.HH:mm'));
+								console.log(
+									moment(item.deadLine).format('YYYY-MM-DD.HH:mm') <
+										moment(new Date()).format('YYYY-MM-DD.HH:mm'),
+								);
 								return (
 									<h2
 										style={
@@ -58,13 +61,35 @@ const BoardColums = ({
 												? { background: 'orange' }
 												: { background: 'cadetblue' }
 										}
-										className={(moment(item.deadLine).format('YYYY-MM-DD.HH:mm')<moment(new Date()).format('YYYY-MM-DD.HH:mm')&& (item.status==='Todo' || item.status==='InProgress' ||item.status==='Waiting'))  ? 'undone' : 'board-task'}
+										className={
+											moment(item.deadLine).format('YYYY-MM-DD.HH:mm') <
+												moment(new Date()).format('YYYY-MM-DD.HH:mm') &&
+											(item.status === 'Todo' ||
+												item.status === 'InProgress' ||
+												item.status === 'Waiting')
+												? 'undone'
+												: 'board-task'
+										}
 										
-										onDoubleClick={() => {
-											console.log('Delete on double click');
-											console.log('navigatee');
-											navigate(`/task/details/${item.id}`);
+										onClick={e => {
+											console.log(e);
+											console.log(e.type);
+											
+											switch (e.detail) {
+												
+												case 2:
+													if(e._targetInst===null){
+														console.log('Delete on double click');
+														console.log('navigatee');
+														navigate(`/task/details/${item.id}`);
+													}
+													
+													break;
+												default:
+													console.log('nothink1');
+											}
 										}}
+										
 										onDragOver={e => dragOverHandler(e)}
 										onDragLeave={e => dragLeaveHandler(e)}
 										onDragStart={e => dragStartHandler(e, board, item)}
@@ -88,7 +113,7 @@ const BoardColums = ({
 												type='text'
 												buttonsAlign='before'
 												value={item.name}
-												onSave={editTask => onSavaEditTaskHandler(editTask, item.id)}
+												onSave={editTask => {editTask.preventDefault();onSavaEditTaskHandler(editTask, item.id)}}
 											/>
 										</div>
 									</h2>

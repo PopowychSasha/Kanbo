@@ -153,16 +153,16 @@ const TaskDetailsPage = () => {
 				/>
 			</div>
 			<ToastContainer limit={1}
-					position='bottom-right'
-					autoClose={1500}
-					hideProgressBar={false}
-					newestOnTop={false}
-					closeOnClick
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-				/>
+				position='bottom-right'
+				autoClose={1500}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
 		</div>
 	);
 };

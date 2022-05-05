@@ -110,6 +110,7 @@ const BoardColums = ({
 													width: '100%',
 													alignItems: 'flex-end',
 												}}
+												startEditingOnEnter={true}
 												type='text'
 												buttonsAlign='before'
 												value={item.name}

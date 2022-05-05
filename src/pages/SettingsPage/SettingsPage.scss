@@ -1,5 +1,6 @@
 .setting-page-wrapper{
     min-height: 100vh;
+    padding-top: 40px;
     .avatar-icon{
         width: 85px;
         display: block;
@@ -13,12 +14,6 @@
         margin-top: 10px;
         font-size: 35px;
         font-weight: 700;
-    }
-    .settings-title,.password-title{
-        width: 400px;
-        margin: auto;
-        font-size: 20px;
-        margin-top: 20px;
     }
     .image-picker-wrapper {
         display: flex;
@@ -40,9 +35,28 @@
     .settings-form{
         width: 400px;
         margin: auto;
-        .nickname-wrapper,.email-wrapper{
+        .email-wrapper,.oldpassword-wrapper,.newpassword-wrapper{
             display: flex;
             justify-content: space-between;
+            margin-top:25px;
+            div{
+                font-size: 20px;
+            }
+            div{
+                input{
+                    width: 250px;
+                    height: 30px;
+                    border-radius: 10px;
+                    padding-left: 10px;
+                }
+            }
+        }
+        .save-changes{
+            width: 80%;
+            height: 40px;
+            display: block;
+            margin: auto;
+            margin-top: 50px;
         }
     }
 }

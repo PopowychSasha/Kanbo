@@ -60,3 +60,58 @@
         }
     }
 }
+
+@media screen and (max-width:481px) {
+    .setting-page-wrapper{
+        padding-top: 30px;
+        .avatar-icon{
+            width: 65px;
+        }
+        .user-nickname{
+            font-size: 30px;
+        }
+        .image-picker-wrapper {
+            .picked-image {
+                width: 130px;
+                height: 100px;
+                margin: auto;
+                img {
+                    display: block;
+                    width: 75px;
+                    height: 75px;
+                    border-radius: 10px;
+                    margin: auto;
+                    border-radius: 100%;
+                    margin-top: 20px;
+                }
+            }
+        }
+        .settings-form{
+            width: 350px;
+            margin: auto;
+            .email-wrapper,.oldpassword-wrapper,.newpassword-wrapper{
+                display: flex;
+                justify-content: space-between;
+                margin-top:25px;
+                div{
+                    font-size: 20px;
+                }
+                div{
+                    input{
+                        width: 200px;
+                        height: 30px;
+                        border-radius: 10px;
+                        padding-left: 10px;
+                    }
+                }
+            }
+            .save-changes{
+                width: 80%;
+                height: 40px;
+                display: block;
+                margin: auto;
+                margin-top: 50px;
+            }
+        }
+    }
+}

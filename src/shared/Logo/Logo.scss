@@ -11,3 +11,16 @@
 		color: #65b1fc;
 	}
 }
+
+@media screen and (max-width:992px) {
+	.logo-wrapper {
+		.logo-icon {
+			width: 50px;
+			margin-top: 20px;
+		}
+		.logo-text {
+			font-size: 30px;
+			margin-top: 20px;
+		}
+	}	
+}

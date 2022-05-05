@@ -66,7 +66,7 @@ const CreateBoardModal = ({ handleClickClose }) => {
 				<div>
 					<hr />
 				</div>
-				<FormControl sx={{ width: 500, height: 200 }}>
+				<FormControl className='form-control'>
 					<RadioGroup
 						aria-labelledby='demo-radio-buttons-group-label'
 						defaultValue='female'

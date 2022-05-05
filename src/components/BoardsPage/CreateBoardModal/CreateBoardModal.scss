@@ -1,4 +1,7 @@
-
+.form-control{
+	width: 500px;
+	height: 200px;
+}
 .radio-type-wrapper {
 	font-size: 40px;
 	margin: auto;
@@ -29,4 +32,19 @@
 	font-size: 25px;
 	border-radius: 20px;
 	cursor: pointer;
+}
+
+@media screen and (max-width:600px) {
+	.form-control{
+		width: 400px;
+	}
+	.close-button {
+		width: 100px;
+		font-size: 20px;
+	}
+	
+	.create-button {
+		width: 100px;
+		font-size: 20px;
+	}
 }

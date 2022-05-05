@@ -141,6 +141,7 @@ const BoardPage = () => {
 				.catch(err => console.log(err.message));
 		}
 	};
+	
 	return (
 		<div className='board-page-wrapper'>
 			<Header />

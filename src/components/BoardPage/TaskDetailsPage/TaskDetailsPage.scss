@@ -2,8 +2,8 @@
     width:75vw;
     margin:auto;
     padding:10px 0px 50px 0px;
-    min-height: 100vh;
     color:teal;
+    min-height: 100vh;
     .task-status-type{
         display: flex;
         margin: 10px 0px 10px 0px;
@@ -31,5 +31,23 @@
             margin-left: 50px;
         }
     }
+    button[editext='cancel-button'] {
+        &:hover {
+          background: crimson;
+          color: #fff;
+        }
+      }
+      button[editext='edit-button'] {
+        background: inherit;
+        color: #fff;
+        border:none;
+        color:black;
+      }
+      button[editext='edit-button'] {
+        &:hover {
+          background: inherit;
+          color: crimson;
+        }
+      }
 }
 

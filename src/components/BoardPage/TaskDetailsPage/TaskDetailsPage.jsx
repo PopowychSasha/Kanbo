@@ -12,6 +12,7 @@ import DateTimePicker from 'react-datetime-picker';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
 import { toast, ToastContainer } from 'react-toastify';
+import EdiText from 'react-editext';
 
 const TaskDetailsPage = () => {
 	const navigate = useNavigate();
@@ -91,6 +92,15 @@ const TaskDetailsPage = () => {
 		.catch(err=>console.log(err))
 	}
 	
+	const onSavaEditTaskHandler = (editTask, taskId) => {
+		if (editTask !== '') {
+			axios
+				.post('/api/task/edit', { taskId: taskId, editTask: editTask })
+				.then(res => console.log(res))
+				.catch(err => console.log(err.message));
+		}
+	};
+
 	return (
 		<div className='details-task-wrapper'>
 			<div style={{display:'flex'}}>
@@ -119,8 +129,20 @@ const TaskDetailsPage = () => {
 			</div>
 			
 			<h3>
-				<h2 title='taskTitle'>
-					name is {taskData.name}
+				<h2>
+						<EdiText
+							style={{
+								display: 'flex',
+								margin: 'auto',
+								width: '100%',
+								alignItems: 'flex-end',
+							}}
+							startEditingOnEnter={true}
+							type='text'
+							buttonsAlign='after'
+							value={taskData.name}
+							onSave={editTask => {onSavaEditTaskHandler(editTask, taskData.id)}}
+						/>
 				</h2>
 				<div title='createdAt'>
 					Created at {moment(taskData.createdAt).format('YYYY-MM-DD.HH:mm')}

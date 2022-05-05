@@ -19,7 +19,10 @@ const Header = () => {
 			<Logo />
 			<div className='avatar'>
 				<span>
-					Wellcome <span className='user-nickname'>{mainUserData.nickname} !</span>
+					<span className='wellcome-word'>Wellcome</span>{' '}
+					<span className='user-nickname'>
+						{mainUserData.nickname} <span>!</span>
+					</span>
 				</span>
 				<Image
 					cloudName={process.env.REACT_APP_CLOUDINARY_NAME}

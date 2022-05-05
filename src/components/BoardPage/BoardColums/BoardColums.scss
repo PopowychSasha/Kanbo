@@ -1,7 +1,11 @@
 .board-wrapper{
     display: flex;
     margin: auto;
-    width: 1200px;
+    width:100%;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    justify-content: space-around;
+    padding: 0px 100px;
     h1{
         margin: 10px 0px;
     }
@@ -14,6 +18,9 @@
         .tasks{
             height: 400px;
             overflow-y: scroll;
+            .task{
+                color: aquamarine;
+            }
             .board-task{
                 background-color:darkseagreen;
                 padding: 10px 0px;
@@ -100,4 +107,10 @@
         rotate: 50deg;
         background:red;
     }
-  }
+}
+
+@media screen and (max-width:800px) {
+    .board-wrapper{
+        padding: 0px 0px;
+    }
+}

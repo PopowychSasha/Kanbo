@@ -25,3 +25,19 @@
 		}
 	}
 }
+
+@media screen and (max-width:992px) {
+	.header-wrapper {
+		.avatar{
+			.user-nickname{
+				font-size: 15px;
+			}
+			.wellcome-word{
+				display: none;
+			}
+			.avatar-icon{
+				width: 50px;
+			}
+		}
+	}
+}

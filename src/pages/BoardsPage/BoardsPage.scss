@@ -78,3 +78,14 @@
 		margin-top: 10px;
 	}
 }
+
+@media screen and (max-width:567px) {
+	.boards-page-wrapper {
+		.search-boards-input{
+			width: 370px;
+		}
+		.board {
+			width: 370px;
+		}
+	}
+}

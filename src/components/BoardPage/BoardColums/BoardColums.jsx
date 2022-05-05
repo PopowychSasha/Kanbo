@@ -1,5 +1,4 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import EdiText from 'react-editext';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import './BoardColums.scss';
@@ -13,7 +12,6 @@ const BoardColums = ({
 	dragStartHandler,
 	dragEndHandler,
 	dropHandler,
-	onSavaEditTaskHandler,
 	showAddTaskField,
 	createTaskHandler,
 	setTask,
@@ -35,7 +33,7 @@ const BoardColums = ({
 								justifyContent: 'space-around',
 								alignItems: 'center',
 							}}>
-							<h1 style={{ color: 'teal' }}>{board.status}</h1>
+							<h2 style={{ color: 'teal' }}>{board.status}</h2>
 							{board.status === 'Todo' && (
 								<AddCircleIcon
 									onClick={() => setShowAddTaskField(p => !p)}
@@ -51,7 +49,7 @@ const BoardColums = ({
 										moment(new Date()).format('YYYY-MM-DD.HH:mm'),
 								);
 								return (
-									<h2
+									<h4
 										style={
 											board.status === 'Todo'
 												? { background: '#65B1FC' }
@@ -71,23 +69,8 @@ const BoardColums = ({
 												: 'board-task'
 										}
 										
-										onClick={e => {
-											console.log(e);
-											console.log(e.type);
-											
-											switch (e.detail) {
-												
-												case 2:
-													if(e._targetInst===null){
-														console.log('Delete on double click');
-														console.log('navigatee');
-														navigate(`/task/details/${item.id}`);
-													}
-													
-													break;
-												default:
-													console.log('nothink1');
-											}
+										onClick={() => {
+											navigate(`/task/details/${item.id}`);
 										}}
 										
 										onDragOver={e => dragOverHandler(e)}
@@ -103,21 +86,11 @@ const BoardColums = ({
 												justifyContent: 'space-between',
 												padding: '0px 10px',
 											}}>
-											<EdiText
-												style={{
-													display: 'flex',
-													margin: 'auto',
-													width: '100%',
-													alignItems: 'flex-end',
-												}}
-												startEditingOnEnter={true}
-												type='text'
-												buttonsAlign='before'
-												value={item.name}
-												onSave={editTask => {editTask.preventDefault();onSavaEditTaskHandler(editTask, item.id)}}
-											/>
+											<div className="task">
+												{item.name}
+											</div>
 										</div>
-									</h2>
+									</h4>
 								);
 							})}
 						</div>

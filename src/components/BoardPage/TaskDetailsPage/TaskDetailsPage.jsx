@@ -45,8 +45,8 @@ const TaskDetailsPage = () => {
 			});
 	};
 
-	const changeTaskStatusHandler = (status)=>{
-		dispatch(changeTaskStatus(status))
+	const changeTaskStatusHandler = status => {
+		dispatch(changeTaskStatus(status));
 		axios
 			.post('/api/task/status', {
 				id: taskData.id,
@@ -56,7 +56,7 @@ const TaskDetailsPage = () => {
 				console.log('Change position');
 			})
 			.catch(err => console.log(err.message));
-	}
+	};
 	useEffect(() => {
 		dispatch(getTaskDataStart(taskId));
 		axios
@@ -67,31 +67,33 @@ const TaskDetailsPage = () => {
 			.catch(err => {
 				/* alert('AAA DEN'); */
 				toast.error('Access deny');
-				setTimeout(()=>{
+				setTimeout(() => {
 					navigate(-1);
-				},2000)
+				}, 2000);
 				console.log(err.message);
 			});
 	}, []);
 
-	const deleteTaskHandler = ()=>{
-		axios.delete(`/api/task/${taskId}`)
-		.then(res=>{
-			console.log(res);
-			navigate(-1);
-		})
-		.catch(err=>console.log(err.message))
-	}
+	const deleteTaskHandler = () => {
+		axios
+			.delete(`/api/task/${taskId}`)
+			.then(res => {
+				console.log(res);
+				navigate(-1);
+			})
+			.catch(err => console.log(err.message));
+	};
 
-	const setDeadLineForTask = ()=>{
-		axios.post('/api/task/deadline',{
-			taskId:taskId,
-			deadline:moment(deadline).format('YYYY-MM-DD.HH:mm:ss')
-		})
-		.then(res=>console.log(res))
-		.catch(err=>console.log(err))
-	}
-	
+	const setDeadLineForTask = () => {
+		axios
+			.post('/api/task/deadline', {
+				taskId: taskId,
+				deadline: moment(deadline).format('YYYY-MM-DD.HH:mm:ss'),
+			})
+			.then(res => console.log(res))
+			.catch(err => console.log(err));
+	};
+
 	const onSavaEditTaskHandler = (editTask, taskId) => {
 		if (editTask !== '') {
 			axios
@@ -103,60 +105,69 @@ const TaskDetailsPage = () => {
 
 	return (
 		<div className='details-task-wrapper'>
-			<div style={{display:'flex'}}>
-				<SaveIcon
-					style={{
-						cursor: 'pointer',
-						fontSize: '50px',
-						color: isChanges === true ? 'red' : 'teal',
-					}}
-					onClick={log}>
-					Save
-				</SaveIcon>
-				<ArrowBackIcon
-					style={{ cursor: 'pointer', fontSize: '50px' }}
-					onClick={() => navigate(-1)}>
-					GoBack
-				</ArrowBackIcon>
-				<div className='task-status-type'>
-					<div className={taskData.status === 'Todo' && 'active'} onClick={()=>changeTaskStatusHandler('Todo')}>Todo</div>
-					<div className={taskData.status === 'InProgress' && 'active'} onClick={()=>changeTaskStatusHandler('InProgress')}>InProgress</div>
-					<div className={taskData.status === 'Waiting' && 'active'} onClick={()=>changeTaskStatusHandler('Waiting')}>Waiting</div>
-					<div className={taskData.status === 'Done' && 'active'} onClick={()=>changeTaskStatusHandler('Done')}>Done</div>
-					
-					<DeleteIcon className='delete-task-icon' onClick={()=>deleteTaskHandler()}/>
-				</div>
-			</div>
-			
-			<h3>
-				<h2>
-						<EdiText
-							style={{
-								display: 'flex',
-								margin: 'auto',
-								width: '100%',
-								alignItems: 'flex-end',
-							}}
-							startEditingOnEnter={true}
-							type='text'
-							buttonsAlign='after'
-							value={taskData.name}
-							onSave={editTask => {onSavaEditTaskHandler(editTask, taskData.id)}}
-						/>
-				</h2>
-				<div title='createdAt'>
-					Created at {moment(taskData.createdAt).format('YYYY-MM-DD.HH:mm')}
-				</div>
-			</h3>
-			
-			<div style={{position:'absolute',zIndex:'1',top:'160px'}}>
+			<div>
 				<DateTimePicker onChange={setDeadline} value={deadline} />
-				<BeenhereIcon onClick={setDeadLineForTask}/>
-				<span>{moment(taskData.deadLine).format('YYYY-MM-DD.HH:mm:ss')}</span>
+				<BeenhereIcon style={{cursor:'pointer'}} onClick={setDeadLineForTask} />	
 			</div>
-			<div style={{position:'absolute',zIndex:'0',top:'210px'}}>
+			<div style={{ display: 'flex' }}>
+				<div className='task-status-type'>
+					<SaveIcon
+						style={{
+							cursor: 'pointer',
+							fontSize: '30px',
+							color: isChanges === true ? 'red' : 'teal',
+						}}
+						onClick={log}>
+						Save
+					</SaveIcon>
+					<ArrowBackIcon
+						style={{ cursor: 'pointer', fontSize: '30px' }}
+						onClick={() => navigate(-1)}>
+						GoBack
+					</ArrowBackIcon>
+					<div
+						className={taskData.status === 'Todo' && 'active'}
+						onClick={() => changeTaskStatusHandler('Todo')}>
+						Todo
+					</div>
+					<div
+						className={taskData.status === 'InProgress' && 'active'}
+						onClick={() => changeTaskStatusHandler('InProgress')}>
+						InProgress
+					</div>
+					<div
+						className={taskData.status === 'Waiting' && 'active'}
+						onClick={() => changeTaskStatusHandler('Waiting')}>
+						Waiting
+					</div>
+					<div
+						className={taskData.status === 'Done' && 'active'}
+						onClick={() => changeTaskStatusHandler('Done')}>
+						Done
+					</div>
+					<DeleteIcon className='delete-task-icon' onClick={() => deleteTaskHandler()} />
+				</div>
+			</div>
+
+			<h3>
+				<EdiText
+					startEditingOnEnter={true}
+					type='text'
+					buttonsAlign='after'
+					value={taskData.name}
+					onSave={editTask => {
+						onSavaEditTaskHandler(editTask, taskData.id);
+					}}
+				/>
+			</h3>
+			<div className='task-info'>
+				<div>Created at {moment(taskData.createdAt).format('YYYY-MM-DD.HH:mm')}</div>
+				<div>Deadline : {moment(taskData.deadLine).format('YYYY-MM-DD.HH:mm:ss')}</div>
+			</div>
+
+			
+			<div style={{ position: 'absolute', zIndex: '0', top: '210px' }}>
 				<Editor
-					
 					onInit={(evt, editor) => (editorRef.current = editor)}
 					onEditorChange={() => {
 						setIsChanges(true);
@@ -174,7 +185,8 @@ const TaskDetailsPage = () => {
 					}}
 				/>
 			</div>
-			<ToastContainer limit={1}
+			<ToastContainer
+				limit={1}
 				position='bottom-right'
 				autoClose={1500}
 				hideProgressBar={false}

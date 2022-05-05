@@ -3,15 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import {
-	Dialog,
-	DialogActions,
-	FormControl,
-	FormControlLabel,
-	Radio,
-	RadioGroup,
-	TextField,
-} from '@mui/material';
+import { Dialog, DialogActions, FormControl, RadioGroup, TextField } from '@mui/material';
 import './CreateBoardModal.scss';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -20,32 +12,28 @@ const Transition = forwardRef(function Transition(props, ref) {
 });
 
 const CreateBoardModal = ({ handleClickClose }) => {
-	const [boardType, setBoardType] = useState('');
 	const [boardName, setBoardName] = useState('');
-	
+
 	const navigate = useNavigate();
 
-	const setBoardTypeHandler = e => {
-		setBoardType(e.target.value);
-	};
 	console.log(`boardName=${boardName}`);
 	const onChangeBoardNameHandler = e => {
 		setBoardName(e.target.value);
 	};
 
 	const createBoardHandler = () => {
-		if (boardType && boardName) {
+		if (boardName) {
 			axios
-				.post('/api/board', { name: boardName, type: boardType })
+				.post('/api/board', { name: boardName })
 				.then(res => {
 					console.log(res);
 					navigate(`/board/${res.data.id}`);
 				})
-				.catch((err) => {
+				.catch(err => {
 					if (err.response) {
-						if(err.response.status===401){
+						if (err.response.status === 401) {
 							alert('You are unauthorize. Sign in again');
-							navigate('/login');		
+							navigate('/login');
 						}
 					}
 				});
@@ -57,11 +45,13 @@ const CreateBoardModal = ({ handleClickClose }) => {
 	return (
 		<div>
 			<Dialog
+				sx={{ height: '380px' ,marginTop:'200px'}}
 				open={open}
 				TransitionComponent={Transition}
 				keepMounted
 				onClose={handleClickClose}
 				aria-describedby='alert-dialog-slide-description'>
+				
 				<DialogTitle sx={{ fontSize: '35px' }}>{'Create new board'}</DialogTitle>
 				<div>
 					<hr />
@@ -76,22 +66,8 @@ const CreateBoardModal = ({ handleClickClose }) => {
 							id='outlined-basic'
 							label='board name'
 							variant='outlined'
-							sx={{ width: '50%', margin: 'auto', marginTop: '30px' }}
+							sx={{ width: '50%', margin: 'auto', marginTop: '50px' }}
 						/>
-						<div className='radio-type-wrapper'>
-							<FormControlLabel
-								onClick={setBoardTypeHandler}
-								value='single'
-								control={<Radio/>}
-								label='SINGLE BOARD'
-							/>
-							<FormControlLabel
-								onClick={setBoardTypeHandler}
-								value='command'
-								control={<Radio/>}
-								label='COMMAND  BOARD'
-							/>
-						</div>
 					</RadioGroup>
 				</FormControl>
 				<DialogActions>

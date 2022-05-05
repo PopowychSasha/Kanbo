@@ -6,12 +6,13 @@
     min-height: 100vh;
     .task-status-type{
         display: flex;
+        flex-wrap: wrap;
         margin: 10px 0px 10px 0px;
         align-items:center;
         div{
-            width: 130px;
+            width: 100px;
             height: 40px;
-            font-size: 25px;
+            font-size: 15px;
             border:1px solid silver;
             text-align: center;
             cursor: pointer;
@@ -19,7 +20,7 @@
         .active{
             background:teal;
             color:#FFF;
-            font-size: 25px;
+            font-size: 17px;
         }
         .delete-task-icon{
             margin-left: 50px;
@@ -31,6 +32,11 @@
             margin-left: 50px;
         }
     }
+    
+    .task-info{
+        color:red;
+    }
+
     button[editext='cancel-button'] {
         &:hover {
           background: crimson;
@@ -49,5 +55,21 @@
           color: crimson;
         }
       }
+      div[editext='view-container'] {
+        background: #FFFFFF;
+        border-radius: 5px;
+        min-width: 200px;
+        margin: auto;
+        color: teal;
+        padding: 5px 10px;
+      }
+}
+
+@media screen and (max-width:882px) {
+    .details-task-wrapper{
+        .task-info{
+            display: none;
+        }
+    }
 }
 

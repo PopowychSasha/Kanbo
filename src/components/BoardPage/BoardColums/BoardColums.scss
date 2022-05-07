@@ -20,6 +20,16 @@
             overflow-y: scroll;
             .task{
                 color: #FFFFFF;
+                .task-name{
+                    width: 200px;
+                    overflow-wrap: break-word;
+                }
+                .dead-line{
+                    position: relative;
+                    left: 120px;
+                    font-size: 12px;
+                    min-width: 10px;
+                }
             }
             .board-task{
                 background-color:darkseagreen;
@@ -96,14 +106,12 @@
 @keyframes flicker {
     0%{
         color:#FFFFFF;
-        font-size: 20px;
         background:aqua!important;
         rotate: 10deg;
         background:black;
     }
     100%{
         color:#FFFFFF;
-        font-size: 25px;
         rotate: 50deg;
         background:red;
     }
@@ -112,5 +120,25 @@
 @media screen and (max-width:800px) {
     .board-wrapper{
         padding: 0px 0px;
+    }
+}
+
+@media screen and (max-width:583px) {
+    .board-wrapper{
+        .board-part{
+            width: 80%;
+            margin-left: 20px;
+            .tasks{
+                .task{
+                    .task-name{
+                        width: 100%;
+                        overflow-wrap: break-word;
+                    }
+                    .dead-line{
+                        left: 100px;
+                    }
+                }
+            }
+        }
     }
 }

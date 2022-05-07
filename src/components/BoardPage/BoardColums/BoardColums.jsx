@@ -87,7 +87,8 @@ const BoardColums = ({
 												padding: '0px 10px',
 											}}>
 											<div className="task">
-												{item.name}
+												<div className="task-name">{item.name}</div>
+												<span className='dead-line'>{item.deadLine ? moment(item.deadLine).format('MM-DD.HH:mm') : 'missing'}</span>
 											</div>
 										</div>
 									</h4>

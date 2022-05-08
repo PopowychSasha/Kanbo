@@ -8,6 +8,7 @@ import {
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import './SignInFormFields.scss';
+import { NICKNAME, PASSWORD } from '../../../constants/LoginPage';
 
 const SignInFormFields = ({
 	onChangeNicknameHandler,
@@ -20,7 +21,7 @@ const SignInFormFields = ({
 	return (
 		<>
 			<FormControl variant='standard'>
-				<InputLabel htmlFor='nickname'>nickname</InputLabel>
+				<InputLabel htmlFor='nickname'>{NICKNAME}</InputLabel>
 				<Input
 					id='nickname'
 					onChange={onChangeNicknameHandler}
@@ -35,7 +36,7 @@ const SignInFormFields = ({
 				/>
 			</FormControl>
 			<FormControl variant='standard'>
-				<InputLabel htmlFor='standard-adornment-password'>password</InputLabel>
+				<InputLabel htmlFor='standard-adornment-password'>{PASSWORD}</InputLabel>
 				<Input
 					id='standard-adornment-password'
 					onChange={onChangePasswordHandler}

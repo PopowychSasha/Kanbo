@@ -6,9 +6,7 @@ import { GET_BOARDS_START } from '../actionTypes/boards';
 const fetchBoards = ()=> axios.get('/api/boards'); 
 
 function* boardsWorker(){
-    console.log('YYY((');
     const {data} = yield call(fetchBoards);
-    console.log(data);
     yield put(getBoardsSuccess(data));
 }
 

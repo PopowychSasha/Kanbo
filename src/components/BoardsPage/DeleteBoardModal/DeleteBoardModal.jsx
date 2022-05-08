@@ -1,5 +1,4 @@
 import { forwardRef } from 'react';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -9,6 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { getBoardsStart } from '../../../redux/actionCreators/boards';
 import './DeleteBoardModal.scss';
+import { deleteBoard } from '../../../utils/Board/deleteBoard';
+import { CLOSE, DELETE, MESSAGE_ABOUTE_REMOVING_BOARD } from '../../../constants/BoardsPage';
 
 const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction='up' ref={ref} {...props} />;
@@ -17,14 +18,8 @@ const Transition = forwardRef(function Transition(props, ref) {
 const DeleteBoardModal = ({ open, handleClose, boardId }) => {
 	const dispatch = useDispatch();
 	const removeBoards = () => {
-    handleClose();
-		axios
-			.delete(`/api/delete/board/${boardId}`)
-			.then(() => {
-        console.log('getBoardsStart!');
-				dispatch(getBoardsStart());
-			})
-			.catch(err => console.log(err.message));
+		handleClose();
+		deleteBoard(boardId,dispatch,getBoardsStart);
 	};
 
 	return (
@@ -38,16 +33,15 @@ const DeleteBoardModal = ({ open, handleClose, boardId }) => {
 				<DialogTitle>{'Delete board'}</DialogTitle>
 				<DialogContent>
 					<DialogContentText id='alert-dialog-slide-description'>
-						Do you really want to remove this board? The board and absolutely all tasks
-						for it will be deleted forever.
+						{MESSAGE_ABOUTE_REMOVING_BOARD}
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
 					<button className='delete-button' onClick={removeBoards}>
-						Delete
+						{DELETE}
 					</button>
 					<button className='close-modal' onClick={handleClose}>
-						Close
+						{CLOSE}
 					</button>
 				</DialogActions>
 			</Dialog>

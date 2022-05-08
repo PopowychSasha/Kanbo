@@ -1,14 +1,15 @@
-import { Image } from 'cloudinary-react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { Image } from 'cloudinary-react';
+import { Button } from '@mui/material';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import ImagePicker from '../../components/LoginPage/ImagePicker/ImagePicker';
 import { asyncAccountDataCreator } from '../../redux/actionCreators/accountData';
-import axios from 'axios';
 import './SettingsPage.scss';
-import { Button } from '@mui/material';
-import { toast, ToastContainer } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import { changeUserData } from '../../utils/changeUserData';
+import { EMAIL, NEW_PASSWORD, OLD_PASSWORD,SAVE_CHANGES } from '../../constants/SettingsPage';
 
 const SettingsPage = () => {
 	const mainUserData = useSelector(store => store.accountDataReducer);
@@ -20,7 +21,6 @@ const SettingsPage = () => {
 	const [email, setEmail] = useState('');
 	const [oldPassword, setOldPassword] = useState('');
 	const [newPassword, setNewPassword] = useState('');
-	console.log(mainUserData);
 
 	useEffect(() => {
 		dispatch(asyncAccountDataCreator());
@@ -38,29 +38,7 @@ const SettingsPage = () => {
 		formData.append('file', imageSelected);
 		formData.append('upload_preset', 'yb6djiab');
 
-		axios
-			.post(`https://api.cloudinary.com/v1_1/dgle2qeqp/image/upload`, formData)
-			.then(responce => {
-				axios
-					.post('/api/change/account', {
-						id: mainUserData.id,
-						email: email,
-						avatarPublicId: responce.data.public_id,
-						oldPassword:oldPassword,
-						newPassword:newPassword
-					})
-					.then(res => {
-						toast.success('You update account successful');
-						setTimeout(()=>{
-							navigate(-1);
-							console.log(res);
-						},2000)
-					})
-					.catch(() => {
-						toast.error('Password is invalide');
-					});
-			})
-			.catch(() => console.log('Cloudinary error'));
+		changeUserData(formData,mainUserData.id,email,oldPassword,newPassword,navigate);
 	};
 
 	return (
@@ -73,7 +51,7 @@ const SettingsPage = () => {
 			<span className='user-nickname'>{mainUserData.nickname}</span>
 			<form className='settings-form' onSubmit={onSubmitFormHandler}>
 				<div className='email-wrapper'>
-					<div>Email</div>
+					<div>{EMAIL}</div>
 					<div>
 						<input
 							value={email}
@@ -83,7 +61,7 @@ const SettingsPage = () => {
 					</div>
 				</div>
 				<div className='oldpassword-wrapper'>
-					<div>OldPassword</div>
+					<div>{OLD_PASSWORD}</div>
 					<div>
 						<input
 							value={oldPassword}
@@ -93,7 +71,7 @@ const SettingsPage = () => {
 					</div>
 				</div>
 				<div className='newpassword-wrapper'>
-					<div>NewPassword</div>
+					<div>{NEW_PASSWORD}</div>
 					<div>
 						<input
 							value={newPassword}
@@ -115,7 +93,7 @@ const SettingsPage = () => {
 					)}
 				</div>
 				<Button className='save-changes' type='submit' variant='contained'>
-					Save changes
+					{SAVE_CHANGES}
 				</Button>
 				<KeyboardReturnIcon style={{cursor:'pointer'}} onClick={()=>navigate(-1)}/>
 			</form>

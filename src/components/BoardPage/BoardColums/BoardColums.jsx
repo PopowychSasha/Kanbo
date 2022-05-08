@@ -1,6 +1,6 @@
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './BoardColums.scss';
 
 const BoardColums = ({
@@ -18,6 +18,7 @@ const BoardColums = ({
 	task,
 }) => {
 	const navigate = useNavigate();
+
 	return (
 		<div className='board-wrapper'>
 			{boards.map(board => {
@@ -27,27 +28,18 @@ const BoardColums = ({
 						key={board.id}
 						onDragOver={e => dragOverHandler(e)}
 						onDrop={e => dropCardHandler(e, board)}>
-						<div
-							style={{
-								display: 'flex',
-								justifyContent: 'space-around',
-								alignItems: 'center',
-							}}>
-							<h2 style={{ color: 'teal' }}>{board.status}</h2>
+						<div className='board-title'>
+							<h2>{board.status}</h2>
 							{board.status === 'Todo' && (
 								<AddCircleIcon
 									onClick={() => setShowAddTaskField(p => !p)}
-									style={{ color: 'teal', cursor: 'pointer' }}
+									className='add-circle-icon'
 								/>
 							)}
 						</div>
 						<hr />
 						<div className='tasks'>
 							{board.items.map(item => {
-								console.log(
-									moment(item.deadLine).format('YYYY-MM-DD.HH:mm') <
-										moment(new Date()).format('YYYY-MM-DD.HH:mm'),
-								);
 								return (
 									<h4
 										style={
@@ -68,11 +60,9 @@ const BoardColums = ({
 												? 'undone'
 												: 'board-task'
 										}
-										
 										onClick={() => {
 											navigate(`/task/details/${item.id}`);
 										}}
-										
 										onDragOver={e => dragOverHandler(e)}
 										onDragLeave={e => dragLeaveHandler(e)}
 										onDragStart={e => dragStartHandler(e, board, item)}
@@ -80,15 +70,14 @@ const BoardColums = ({
 										onDrop={e => dropHandler(e, board, item)}
 										key={item.id}
 										draggable={true}>
-										<div
-											style={{
-												display: 'flex',
-												justifyContent: 'space-between',
-												padding: '0px 10px',
-											}}>
-											<div className="task">
-												<div className="task-name">{item.name}</div>
-												<span className='dead-line'>{item.deadLine ? moment(item.deadLine).format('MM-DD.HH:mm') : 'missing'}</span>
+										<div className='task-wrapper'>
+											<div className='task'>
+												<div className='task-name'>{item.name}</div>
+												<span className='dead-line'>
+													{item.deadLine
+														? moment(item.deadLine).format('MM-DD.HH:mm')
+														: 'missing'}
+												</span>
 											</div>
 										</div>
 									</h4>

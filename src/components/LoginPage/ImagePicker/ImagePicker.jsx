@@ -1,4 +1,5 @@
 import { Button } from '@mui/material';
+import { UPLOAD_IMAGE } from '../../../constants/LoginPage';
 import './ImagePicker.scss';
 
 const ImagePicker = ({ setPickedImageUrl, setImageSelected }) => {
@@ -9,12 +10,11 @@ const ImagePicker = ({ setPickedImageUrl, setImageSelected }) => {
 				variant='outlined'
 				color='secondary'
 				sx={{ width: 150, height: 50 }}>
-				Upload Image
+				{UPLOAD_IMAGE}
 				<input
 					type='file'
 					hidden
 					onChange={event => {
-						console.log(event.target.files[0].name);
 						setPickedImageUrl(URL.createObjectURL(event.target.files[0]));
 						setImageSelected(event.target.files[0]);
 					}}

@@ -1,8 +1,9 @@
-import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import MainImage from '../../components/GetStartedPage/MainImage/MainImage';
 import Text from '../../components/GetStartedPage/Text/Text';
 import './StartedPage.scss';
+import { GET_STARTED } from '../../constants/StartedPage';
 
 const StartedPage = () => {
 	return (
@@ -14,7 +15,7 @@ const StartedPage = () => {
 				</div>
 				<Link to='/login'>
 					<Button className='get-started-btn' variant='outlined' color='secondary'>
-						Get Started
+						{GET_STARTED}
 					</Button>
 				</Link>
 			</div>

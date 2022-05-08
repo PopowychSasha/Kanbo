@@ -1,0 +1,11 @@
+export const SIGN_IN = "Sign In";
+export const DONT_HAVE_AN_ACCOUNT = "Don't have an account ?";
+export const I_HAVE_AN_ACCOUNT = "I already have an account";
+export const SIGNUP = "SignUp";
+export const ONLY_LETTERS_AND_NUMERS = "must be only letters and numbers";
+export const INVALIDE_GMAIL_FORMAT = "invalide gmail format";
+export const EMAIL = "email";
+export const PASSWORD = "password";
+export const NICKNAME = "nickname";
+export const REQUIRE_FOR_PASSWORD = "Minimum eight characters, at least one letter, one number and one special character:";
+export const UPLOAD_IMAGE = "Upload Image";

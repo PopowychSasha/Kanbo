@@ -7,10 +7,11 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { removeAccountDataCreator } from '../../redux/actionCreators/accountData';
 import CreateBoardModal from '../../components/BoardsPage/CreateBoardModal/CreateBoardModal';
-import SettingsIcon from '@mui/icons-material/Settings';
 import './HeaderDropDown.scss';
+import { CREATE_BOARD, EXIT, SETTINGS } from '../../constants/Shared';
 
 const HeaderDropDown = () => { 
   const dispatch = useDispatch();
@@ -46,13 +47,13 @@ const HeaderDropDown = () => {
           id="demo-simple-select-helper"
           sx={{ width: 40}}
         >
-          <MenuItem onClick={handleClickOpen} /* onClick={logoutHandler} */ sx={{ width: 200,display:'flex',justifyContent:'space-between' }}><div>create board</div>
+          <MenuItem onClick={handleClickOpen} sx={{ width: 200,display:'flex',justifyContent:'space-between' }}><div>{CREATE_BOARD}</div>
             <AddCircleOutlineIcon/> 
           </MenuItem>
-          <MenuItem onClick={goToSettingHandler} /* onClick={logoutHandler} */ sx={{ width: 200,display:'flex',justifyContent:'space-between' }}><div>settings</div>
+          <MenuItem onClick={goToSettingHandler} sx={{ width: 200,display:'flex',justifyContent:'space-between' }}><div>{SETTINGS}</div>
             <SettingsIcon/> 
           </MenuItem>
-          <MenuItem onClick={logoutHandler} sx={{ width: 200,display:'flex',justifyContent:'space-between' }}><div>exit</div>
+          <MenuItem onClick={logoutHandler} sx={{ width: 200,display:'flex',justifyContent:'space-between' }}><div>{EXIT}</div>
             <ExitToAppIcon/> 
           </MenuItem>
         </Select>

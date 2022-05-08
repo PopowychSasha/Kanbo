@@ -1,18 +1,25 @@
-import { Editor } from '@tinymce/tinymce-react';
 import { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
-import SaveIcon from '@mui/icons-material/Save';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import './TaskDetailsPage.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeTaskStatus, getTaskDataStart } from '../../../redux/actionCreators/task';
-import moment from 'moment';
+import { ToastContainer } from 'react-toastify';
 import DateTimePicker from 'react-datetime-picker';
+import EdiText from 'react-editext';
+import moment from 'moment';
+import { Editor } from '@tinymce/tinymce-react';
+import SaveIcon from '@mui/icons-material/Save';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
-import { toast, ToastContainer } from 'react-toastify';
-import EdiText from 'react-editext';
+import { changeTaskStatus, getTaskDataStart } from '../../../redux/actionCreators/task';
+import { createTaskDetails } from '../../../utils/TaskDetailsPage/createTaskDetails';
+import { changeStatus } from '../../../utils/TaskDetailsPage/changeTaskStatus';
+import { getTaskDetails } from '../../../utils/TaskDetailsPage/getTaskDetails';
+import { deleteTask } from '../../../utils/TaskDetailsPage/deleteTask';
+import { setDeadLineForTask } from '../../../utils/TaskDetailsPage/setDeadLineForTask';
+import './TaskDetailsPage.scss';
+import { editTaskHandler } from '../../../utils/TaskDetailsPage/editTask';
+
+import { CREATED_AT, DEADLINE, DONE, GO_BACK, IN_PROGRESS, SAVE, TODO, WAITING } from '../../../constants/TaskDetails';
 
 const TaskDetailsPage = () => {
 	const navigate = useNavigate();
@@ -21,13 +28,10 @@ const TaskDetailsPage = () => {
 	const taskId = useParams().id;
 	const [isChanges, setIsChanges] = useState(false);
 	const taskData = useSelector(store => store.taskReducer);
-	console.log('taskData');
-	console.log(taskData);
 	const [deadline, setDeadline] = useState(new Date());
 	const dispatch = useDispatch();
 
-	console.log('taskData()');
-	console.log(taskData);
+	const moveToPreviousPage = -1;
 
 	const log = () => {
 		setIsChanges(false);
@@ -35,71 +39,30 @@ const TaskDetailsPage = () => {
 			console.log(editorRef.current.getContent());
 		}
 		const details = editorRef.current.getContent();
-		axios
-			.post('/api/task/create/details', { taskId, details: details })
-			.then(res => {
-				setDetails(res.data);
-			})
-			.catch(err => {
-				console.log(err.message);
-			});
+		
+		createTaskDetails(taskId, details, setDetails);
 	};
 
 	const changeTaskStatusHandler = status => {
 		dispatch(changeTaskStatus(status));
-		axios
-			.post('/api/task/status', {
-				id: taskData.id,
-				status: status,
-			})
-			.then(() => {
-				console.log('Change position');
-			})
-			.catch(err => console.log(err.message));
+		changeStatus(taskData.id,status);
 	};
 	useEffect(() => {
 		dispatch(getTaskDataStart(taskId));
-		axios
-			.get(`/api/task/details/${taskId}`)
-			.then(res => {
-				setDetails(res.data.details);
-			})
-			.catch(err => {
-				/* alert('AAA DEN'); */
-				toast.error('Access deny');
-				setTimeout(() => {
-					navigate(-1);
-				}, 2000);
-				console.log(err.message);
-			});
+		getTaskDetails(taskId,setDetails,navigate);
 	}, []);
 
 	const deleteTaskHandler = () => {
-		axios
-			.delete(`/api/task/${taskId}`)
-			.then(res => {
-				console.log(res);
-				navigate(-1);
-			})
-			.catch(err => console.log(err.message));
+		deleteTask(taskId,navigate);
 	};
 
-	const setDeadLineForTask = () => {
-		axios
-			.post('/api/task/deadline', {
-				taskId: taskId,
-				deadline: moment(deadline).format('YYYY-MM-DD.HH:mm:ss'),
-			})
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
+	const setDeadLineForTaskHandler = () => {
+		setDeadLineForTask(taskId,deadline);
 	};
 
 	const onSavaEditTaskHandler = (editTask, taskId) => {
 		if (editTask !== '') {
-			axios
-				.post('/api/task/edit', { taskId: taskId, editTask: editTask })
-				.then(res => console.log(res))
-				.catch(err => console.log(err.message));
+			editTaskHandler(editTask,taskId);
 		}
 	};
 
@@ -107,7 +70,7 @@ const TaskDetailsPage = () => {
 		<div className='details-task-wrapper'>
 			<div>
 				<DateTimePicker onChange={setDeadline} value={deadline} />
-				<BeenhereIcon style={{cursor:'pointer'}} onClick={setDeadLineForTask} />	
+				<BeenhereIcon style={{ cursor: 'pointer' }} onClick={setDeadLineForTaskHandler} />
 			</div>
 			<div style={{ display: 'flex' }}>
 				<div className='task-status-type'>
@@ -118,32 +81,32 @@ const TaskDetailsPage = () => {
 							color: isChanges === true ? 'red' : 'teal',
 						}}
 						onClick={log}>
-						Save
+						{SAVE}
 					</SaveIcon>
 					<ArrowBackIcon
 						style={{ cursor: 'pointer', fontSize: '30px' }}
-						onClick={() => navigate(-1)}>
-						GoBack
+						onClick={() => navigate(moveToPreviousPage)}>
+						{GO_BACK}
 					</ArrowBackIcon>
 					<div
 						className={taskData.status === 'Todo' && 'active'}
 						onClick={() => changeTaskStatusHandler('Todo')}>
-						Todo
+						{TODO}
 					</div>
 					<div
 						className={taskData.status === 'InProgress' && 'active'}
 						onClick={() => changeTaskStatusHandler('InProgress')}>
-						InProgress
+						{IN_PROGRESS}
 					</div>
 					<div
 						className={taskData.status === 'Waiting' && 'active'}
 						onClick={() => changeTaskStatusHandler('Waiting')}>
-						Waiting
+						{WAITING}
 					</div>
 					<div
 						className={taskData.status === 'Done' && 'active'}
 						onClick={() => changeTaskStatusHandler('Done')}>
-						Done
+						{DONE}
 					</div>
 					<DeleteIcon className='delete-task-icon' onClick={() => deleteTaskHandler()} />
 				</div>
@@ -161,11 +124,10 @@ const TaskDetailsPage = () => {
 				/>
 			</h3>
 			<div className='task-info'>
-				<div>Created at {moment(taskData.createdAt).format('YYYY-MM-DD.HH:mm')}</div>
-				<div>Deadline : {moment(taskData.deadLine).format('YYYY-MM-DD.HH:mm:ss')}</div>
+				<div>{CREATED_AT} {moment(taskData.createdAt).format('YYYY-MM-DD.HH:mm')}</div>
+				<div>{DEADLINE} {taskData.deadLine ? moment(taskData.deadLine).format('YYYY-MM-DD.HH:mm:ss') : <span>missing</span>}</div>
 			</div>
 
-			
 			<div style={{ position: 'absolute', zIndex: '0', top: '210px' }}>
 				<Editor
 					onInit={(evt, editor) => (editorRef.current = editor)}

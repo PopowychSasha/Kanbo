@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Backdrop, Button, CircularProgress } from '@mui/material';
-import axios from 'axios';
-import { authDataCreator } from '../../../redux/actionCreators/authData';
 import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
+import { Backdrop, Button, CircularProgress } from '@mui/material';
+import { authDataCreator } from '../../../redux/actionCreators/authData';
 import { postSignUpUserData } from '../../../utils/postSignUpUserData';
 import SignUpFormFields from '../SignUpFormFields/SignUpFormFields';
 import {
@@ -15,6 +15,7 @@ import {
 import ImagePicker from '../ImagePicker/ImagePicker';
 import 'react-toastify/dist/ReactToastify.css';
 import './SignUpForm.scss';
+import { I_HAVE_AN_ACCOUNT, SIGNUP } from '../../../constants/LoginPage';
 
 const SignUpForm = ({ formsToggle }) => {
 	const [isEysClosed, setIsEysClosed] = useState();
@@ -90,7 +91,7 @@ const SignUpForm = ({ formsToggle }) => {
 					<CircularProgress color='inherit' />
 				</Backdrop>
 			)}
-			<div className='sign-up-form-title'>SignUp</div>
+			<div className='sign-up-form-title'>{SIGNUP}</div>
 			<form className='sign-up-form' onSubmit={onSubmitFormHandler}>
 				<SignUpFormFields
 					nicknameError={nicknameError}
@@ -124,11 +125,11 @@ const SignUpForm = ({ formsToggle }) => {
 					)}
 				</div>
 				<Button type='submit' variant='contained' color='secondary'>
-					Sign Up
+					{SIGNUP}
 				</Button>
 			</form>
 			<div onClick={formsToggle} className='dont-have-account'>
-				I already have an account
+				{I_HAVE_AN_ACCOUNT}
 			</div>
 			<ToastContainer
 				position='top-right'

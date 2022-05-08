@@ -8,6 +8,7 @@ import { postSignInUserData } from '../../../utils/postSignInUserData';
 import SignInFormFields from '../SignInFormFields/SignInFormFields';
 import 'react-toastify/dist/ReactToastify.css';
 import './SignInForm.scss';
+import { DONT_HAVE_AN_ACCOUNT, SIGN_IN } from '../../../constants/LoginPage';
 
 const SignInForm = ({ formsToggle }) => {
 	const [isEysClosed, setIsEysClosed] = useState(false);
@@ -46,7 +47,7 @@ const SignInForm = ({ formsToggle }) => {
 
 	return (
 		<div className='sign-in-form-wrapper'>
-			<h3 className='sign-in-form-title'>SignIn</h3>
+			<h3 className='sign-in-form-title'>{SIGN_IN}</h3>
 			<form className='sign-in-form' onSubmit={onSubmitHandler}>
 				<SignInFormFields
 					onChangeNicknameHandler={onChangeNicknameHandler}
@@ -61,11 +62,11 @@ const SignInForm = ({ formsToggle }) => {
 					className='sign-in-btn'
 					variant='outlined'
 					color='secondary'>
-					Sign In
+					{SIGN_IN}
 				</Button>
 			</form>
 			<div onClick={formsToggle} className='dont-have-account'>
-				Don&apos;t have an account ?
+				{DONT_HAVE_AN_ACCOUNT}
 			</div>
 			<ToastContainer
 				position='top-right'

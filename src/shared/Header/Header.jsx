@@ -5,6 +5,7 @@ import { asyncAccountDataCreator } from '../../redux/actionCreators/accountData'
 import HeaderDropDown from '../HeaderDropDown/HeaderDropDown';
 import Logo from '../Logo/Logo';
 import './Header.scss';
+import { WELLCOME } from '../../constants/BoardPage';
 
 const Header = () => {
 	const mainUserData = useSelector(store => store.accountDataReducer);
@@ -19,9 +20,9 @@ const Header = () => {
 			<Logo />
 			<div className='avatar'>
 				<span>
-					<span className='wellcome-word'>Wellcome</span>{' '}
+					<span className='wellcome-word'>{WELLCOME}</span>{' '}
 					<span className='user-nickname'>
-						{mainUserData.nickname} <span>!</span>
+						{mainUserData.nickname}!
 					</span>
 				</span>
 				<Image

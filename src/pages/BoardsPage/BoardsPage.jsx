@@ -8,6 +8,7 @@ import Header from '../../shared/Header/Header';
 import DeleteBoardModal from '../../components/BoardsPage/DeleteBoardModal/DeleteBoardModal';
 import emptyBoard from '../../images/emptyBoard.webp';
 import './BoardsPage.scss';
+import { ABOUT_BOARD_LIST } from '../../constants/BoardsPage';
 
 const BoardsListPage = () => {
 	const dispatch = useDispatch();
@@ -33,8 +34,6 @@ const BoardsListPage = () => {
 	}, []);
 
 	const searchBoards = boards.filter(board=>board.name.toLowerCase().includes(searchTemplate.toLowerCase()));
-	console.log('searchBoards');
-	console.log(searchBoards);
 
 	return (
 		<div className='boards-page-wrapper'>
@@ -75,7 +74,7 @@ const BoardsListPage = () => {
 			) : (
 				<>
 					<img className='empty-board' src={emptyBoard} alt='' />
-					<div className='empty-board-title'>Your board list is empty</div>
+					<div className='empty-board-title'>{ABOUT_BOARD_LIST}</div>
 				</>
 			)}
 		</div>

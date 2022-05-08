@@ -1,11 +1,13 @@
 import { forwardRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { Dialog, DialogActions, FormControl, RadioGroup, TextField } from '@mui/material';
 import './CreateBoardModal.scss';
-import { ToastContainer, toast } from 'react-toastify';
+import { createBoard } from '../../../utils/Board/createBoard';
+import { CLOSE, CREATE } from '../../../constants/BoardsPage';
+
 
 const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction='up' ref={ref} {...props} />;
@@ -13,30 +15,14 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 const CreateBoardModal = ({ handleClickClose }) => {
 	const [boardName, setBoardName] = useState('');
-
 	const navigate = useNavigate();
-
-	console.log(`boardName=${boardName}`);
 	const onChangeBoardNameHandler = e => {
 		setBoardName(e.target.value);
 	};
 
 	const createBoardHandler = () => {
 		if (boardName) {
-			axios
-				.post('/api/board', { name: boardName })
-				.then(res => {
-					console.log(res);
-					navigate(`/board/${res.data.id}`);
-				})
-				.catch(err => {
-					if (err.response) {
-						if (err.response.status === 401) {
-							alert('You are unauthorize. Sign in again');
-							navigate('/login');
-						}
-					}
-				});
+			createBoard(boardName,navigate);
 			handleClickClose();
 		} else {
 			toast.warning('Name and type of board must be selected');
@@ -72,10 +58,10 @@ const CreateBoardModal = ({ handleClickClose }) => {
 				</FormControl>
 				<DialogActions>
 					<button className='close-button' onClick={handleClickClose}>
-						Close
+						{CLOSE}
 					</button>
 					<button className='create-button' onClick={createBoardHandler}>
-						Create
+						{CREATE}
 					</button>
 				</DialogActions>
 				<ToastContainer

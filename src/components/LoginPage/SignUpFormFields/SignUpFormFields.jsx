@@ -9,6 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import './SignUpFormFields.scss';
+import { EMAIL, INVALIDE_GMAIL_FORMAT, NICKNAME, ONLY_LETTERS_AND_NUMERS, PASSWORD, REQUIRE_FOR_PASSWORD } from '../../../constants/LoginPage';
 
 const SignUpFormFields = ({
 	nicknameError,
@@ -33,7 +34,7 @@ const SignUpFormFields = ({
 		<div className='form-fields'>
 			<FormControl variant='standard'>
 				<InputLabel error={nicknameError ? true : false} htmlFor='nickname'>
-					nickname
+					{NICKNAME}
 				</InputLabel>
 				<Input
 					id='nickname'
@@ -51,13 +52,13 @@ const SignUpFormFields = ({
 				/>
 				{nicknameError && (
 					<p style={{ color: 'red', fontSize: '12px' }}>
-						must be only letters and numbers
+						{ONLY_LETTERS_AND_NUMERS}
 					</p>
 				)}
 			</FormControl>
 			<FormControl variant='standard'>
 				<InputLabel error={emailError ? true : false} htmlFor='email'>
-					email
+					{EMAIL}
 				</InputLabel>
 				<Input
 					id='email'
@@ -74,14 +75,14 @@ const SignUpFormFields = ({
 					}
 				/>
 				{emailError && (
-					<p style={{ color: 'red', fontSize: '12px' }}>invalide gmail format</p>
+					<p style={{ color: 'red', fontSize: '12px' }}>{INVALIDE_GMAIL_FORMAT}</p>
 				)}
 			</FormControl>
 			<FormControl variant='standard'>
 				<InputLabel
 					error={passwordError ? true : false}
 					htmlFor='standard-adornment-password'>
-					password
+					{PASSWORD}
 				</InputLabel>
 				<Input
 					id='standard-adornment-password'
@@ -102,8 +103,7 @@ const SignUpFormFields = ({
 				/>
 				{passwordError && (
 					<p style={{ color: 'red', fontSize: '12px' }}>
-						Minimum eight characters, at least one letter, one number and one special
-						character:
+						{REQUIRE_FOR_PASSWORD}
 					</p>
 				)}
 			</FormControl>

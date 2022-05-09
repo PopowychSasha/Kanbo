@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 export const postSignInUserData = (nickname,password,dispatch,authDataCreator,navigate,setNickname,setPassword,toast)=>{
+    const forbidden = 403;
+
     axios
     .post('/api/auth/signin', { nickname, password })
     .then(() => {
@@ -11,7 +13,7 @@ export const postSignInUserData = (nickname,password,dispatch,authDataCreator,na
     })
     .catch(err => {
         if (err.response) {
-            if (err.response.status === 403) {
+            if (err.response.status === forbidden) {
                 toast.warning('nickname or password are invalide');
             }
         }

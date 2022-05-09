@@ -7,9 +7,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { getBoardsStart } from '../../../redux/actionCreators/boards';
-import './DeleteBoardModal.scss';
 import { deleteBoard } from '../../../utils/Board/deleteBoard';
 import { CLOSE, DELETE, MESSAGE_ABOUTE_REMOVING_BOARD } from '../../../constants/BoardsPage';
+import './DeleteBoardModal.scss';
 
 const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction='up' ref={ref} {...props} />;

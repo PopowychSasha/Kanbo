@@ -2,6 +2,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 export const getTaskDetails = (taskId,setDetails,navigate) =>{
+    const delayForCheckTaskAccess = 2000;
+	const goToPreviousPage = -1;
+    
     axios
         .get(`/api/task/details/${taskId}`)
         .then(res => {
@@ -10,8 +13,8 @@ export const getTaskDetails = (taskId,setDetails,navigate) =>{
         .catch(err => {
             toast.error('Access deny');
             setTimeout(() => {
-                navigate(-1);
-            }, 2000);
+                navigate(goToPreviousPage);
+            }, delayForCheckTaskAccess);
             console.log(err.message);
         });
 }

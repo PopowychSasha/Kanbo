@@ -9,6 +9,9 @@ export const changeUserData = (
 	newPassword,
 	navigate,
 ) => {
+	const delayForChangeAccountData = 2000;
+	const goToPreviousPage = -1;
+
 	axios
 		.post(`https://api.cloudinary.com/v1_1/dgle2qeqp/image/upload`, formData)
 		.then(responce => {
@@ -20,12 +23,11 @@ export const changeUserData = (
 					oldPassword: oldPassword,
 					newPassword: newPassword,
 				})
-				.then(res => {
+				.then(() => {
 					toast.success('You update account successful');
 					setTimeout(() => {
-						navigate(-1);
-						console.log(res);
-					}, 2000);
+						navigate(goToPreviousPage);
+					}, delayForChangeAccountData);
 				})
 				.catch(() => {
 					toast.error('Password is invalide');

@@ -51,7 +51,7 @@ const SignUpFormFields = ({
 					}
 				/>
 				{nicknameError && (
-					<p style={{ color: 'red', fontSize: '12px' }}>
+					<p className='nickname-error'>
 						{ONLY_LETTERS_AND_NUMERS}
 					</p>
 				)}
@@ -75,7 +75,7 @@ const SignUpFormFields = ({
 					}
 				/>
 				{emailError && (
-					<p style={{ color: 'red', fontSize: '12px' }}>{INVALIDE_GMAIL_FORMAT}</p>
+					<p className='email-error'>{INVALIDE_GMAIL_FORMAT}</p>
 				)}
 			</FormControl>
 			<FormControl variant='standard'>
@@ -102,7 +102,7 @@ const SignUpFormFields = ({
 					}
 				/>
 				{passwordError && (
-					<p style={{ color: 'red', fontSize: '12px' }}>
+					<p className='password-error'>
 						{REQUIRE_FOR_PASSWORD}
 					</p>
 				)}

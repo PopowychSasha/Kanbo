@@ -16,10 +16,9 @@ import { changeStatus } from '../../../utils/TaskDetailsPage/changeTaskStatus';
 import { getTaskDetails } from '../../../utils/TaskDetailsPage/getTaskDetails';
 import { deleteTask } from '../../../utils/TaskDetailsPage/deleteTask';
 import { setDeadLineForTask } from '../../../utils/TaskDetailsPage/setDeadLineForTask';
-import './TaskDetailsPage.scss';
 import { editTaskHandler } from '../../../utils/TaskDetailsPage/editTask';
-
 import { CREATED_AT, DEADLINE, DONE, GO_BACK, IN_PROGRESS, SAVE, TODO, WAITING } from '../../../constants/TaskDetails';
+import './TaskDetailsPage.scss';
 
 const TaskDetailsPage = () => {
 	const navigate = useNavigate();
@@ -84,7 +83,7 @@ const TaskDetailsPage = () => {
 						{SAVE}
 					</SaveIcon>
 					<ArrowBackIcon
-						style={{ cursor: 'pointer', fontSize: '30px' }}
+						className='arrow-back-icon'
 						onClick={() => navigate(moveToPreviousPage)}>
 						{GO_BACK}
 					</ArrowBackIcon>
@@ -128,7 +127,7 @@ const TaskDetailsPage = () => {
 				<div>{DEADLINE} {taskData.deadLine ? moment(taskData.deadLine).format('YYYY-MM-DD.HH:mm:ss') : <span>missing</span>}</div>
 			</div>
 
-			<div style={{ position: 'absolute', zIndex: '0', top: '210px' }}>
+			<div className='calendar'>
 				<Editor
 					onInit={(evt, editor) => (editorRef.current = editor)}
 					onEditorChange={() => {

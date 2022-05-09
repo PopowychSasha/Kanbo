@@ -1,7 +1,6 @@
 import board from '../../../images/board.png';
 import './MainImage.scss';
 
-
 const MainImage = () => {
 	return (
 		<div className='main-image-wrapper'>

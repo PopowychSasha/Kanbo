@@ -4,10 +4,11 @@ import {ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import Header from '../../shared/Header/Header';
 import BoardColums from '../../components/BoardPage/BoardColums/BoardColums';
-import './BoardPage.scss';
 import { getBoardName } from '../../utils/BoardPage/getBoardName';
 import { createTask } from '../../utils/BoardPage/createTask';
 import { postTaskStatus } from '../../utils/BoardPage/postTaskStatus';
+import { dragToEmptyColumn } from '../../utils/BoardPage/dragToEmptyColumn';
+import './BoardPage.scss';
 
 const BoardPage = () => {
 	const boardId = useParams().id;
@@ -52,35 +53,24 @@ const BoardPage = () => {
 
 	const dropCardHandler = (e, board) => {
 		board.items.push(currentItem);
-
+		
 		const currentIndex = currentBoard.items.indexOf(currentItem);
 		currentBoard.items.splice(currentIndex, 1);
 
 		postTaskStatus(currentItem.id,board,setBoards,boards,currentBoard);
 		
 		setBoards(
-			boards.map(b => {
-				if (b.id === board.id) {
-					axios
-						.post('/api/task/status', {
-							id: b.items[0].id,
-							status: b.status,
-						})
-						.then(() => console.log('Inner change position'))
-						.catch(err => console.log(err.message));
-					return board;
-				}
-				if (b.id === currentBoard.id) {
+			boards.map(boardItem => {
+				dragToEmptyColumn(boardItem,board);
+				if (boardItem.id === currentBoard.id) {
 					return currentBoard;
 				}
-
-				return b;
+				return boardItem;
 			}),
 		);
 	};
 
 	const createTaskHandler = e => {
-		
 		e.preventDefault();
 		if (task) {
 			setShowAddTaskField(false);
@@ -91,7 +81,6 @@ const BoardPage = () => {
 	};
 
 	const onSavaEditTaskHandler = (editTask, taskId) => {
-		
 		if (editTask !== '') {
 			axios
 				.post('/api/task/edit', { taskId: taskId, editTask: editTask })

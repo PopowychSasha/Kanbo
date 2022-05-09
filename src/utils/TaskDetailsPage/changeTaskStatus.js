@@ -5,6 +5,5 @@ export const changeStatus = (id,status)=>{
             id: id,
             status: status,
         })
-        .then(res=>console.log(res))
         .catch(err => console.log(err.message));
 }

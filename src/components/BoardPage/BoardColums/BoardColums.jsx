@@ -19,6 +19,16 @@ const BoardColums = ({
 }) => {
 	const navigate = useNavigate();
 
+	const setTaskBackground = status => {
+		let background = '';
+
+		if(status === 'Todo') background = '#65B1FC';
+		else if(status === 'InProgress') background = 'red'
+		else if(status === 'Waiting') background = 'orange'
+		else background = 'cadetblue'
+		return background;
+	};
+	
 	return (
 		<div className='board-wrapper'>
 			{boards.map(board => {
@@ -42,15 +52,7 @@ const BoardColums = ({
 							{board.items.map(item => {
 								return (
 									<h4
-										style={
-											board.status === 'Todo'
-												? { background: '#65B1FC' }
-												: board.status === 'InProgress'
-												? { background: 'red' }
-												: board.status === 'Waiting'
-												? { background: 'orange' }
-												: { background: 'cadetblue' }
-										}
+										style={{ background: setTaskBackground(board.status) }}
 										className={
 											moment(item.deadLine).format('YYYY-MM-DD.HH:mm') <
 												moment(new Date()).format('YYYY-MM-DD.HH:mm') &&
